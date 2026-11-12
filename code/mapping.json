@@ -1,0 +1,792 @@
+{
+  "generated_by": "gateway-v02/build_mapping.py",
+  "sources": [
+    "~/workspace/dsh-skills/gis-agent-bridges/manifest/tools-manifest.json",
+    "~/workspace/gis-platform-integration/UPGRADE-DESIGN-V02.md",
+    "~/workspace/gis-platform-integration/help-survey/arcgis.md",
+    "~/workspace/gis-platform-integration/help-survey/qgis.md",
+    "~/workspace/gis-platform-integration/data-catalog/catalog_server.py"
+  ],
+  "evidence_level": "离线协议自检（offline protocol self-check only）。本表只证明工具面对得上，不是实机校准证据。",
+  "manifest_scope_note": "Offline protocol self-check only: proves each stdio MCP server starts and lists its tools. It is NOT evidence of calibration against real GIS software; see root README and each package docs/CALIBRATION.md.",
+  "catalog_evidence_level": "登记索引：status=registered 表示仅登记、未打开数据本体验证；许可口径引 MATERIALS-INDEX 第二部分并逐条带 evidence_ref。",
+  "not_supported_policy": "统一工具面 = 基础 8 动词 + 第一波 40 动词（verbs.json）。未列名调用一律 NOT_SUPPORTED；设计标待验的映射回 UNVERIFIED_MAPPING；defer/破坏类在总通道内硬拦截。不静默降级。",
+  "object_model_v02": {
+    "version": "0.2",
+    "basis": "UPGRADE-DESIGN-V02.md §1.14/§3.4 + gateway-v01/OBJECT-MODEL-V01.md",
+    "changes_vs_v01": [
+      "服务端对象借 GeoServer 分工：workspace / store / layer / style（不另发明），随 postgis/geoserver/istsos 三后端进网关",
+      "catalog 记录新增发布一节（publication）的结构扩展位：发布成功后回写 {service_backend, layer, endpoints, published_at}；catalog_server 尚无回写工具，v0.2 网关回包先带 writeback.status=pending_catalog_support，不假装已回写（见 OBJECT-MODEL-V02.md）",
+      "gis_serve_vector_tile 的回包为二进制句柄形态 {content_type, bytes|tile_ref}，不进 JSON 文本面",
+      "dataset 的来源再添一类：source_kind=server_database（backend=postgis 的空间表）"
+    ],
+    "carried_from_v01": "project{kind} 五形态（+database/service 两形态）、dataset 核心对象、STAC 映射、layer.source=Asset 口径全部沿用 OBJECT-MODEL-V01.md"
+  },
+  "tools": {
+    "gis_ping": {
+      "semantics": "桥是否在线",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_ping"
+          ],
+          "args": "无参数"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_ping"
+          ],
+          "args": "无参数"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_ping"
+          ],
+          "args": "无参数"
+        },
+        "qgis": {
+          "native": [
+            "qgis_ping"
+          ],
+          "args": "无参数"
+        },
+        "catalog": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "postgis": {
+          "native": [
+            "postgis_ping"
+          ],
+          "args": "无参数"
+        },
+        "geoserver": {
+          "native": [
+            "geoserver_ping"
+          ],
+          "args": "无参数"
+        },
+        "istsos": {
+          "native": [
+            "istsos_ping"
+          ],
+          "args": "无参数"
+        },
+        "gdal": {
+          "native": [
+            "gdal_ping"
+          ],
+          "args": "无参数"
+        },
+        "qgis-cli": {
+          "native": [
+            "qgis_ping"
+          ],
+          "args": "无参数"
+        },
+        "iserver": {
+          "native": [
+            "iserver_ping"
+          ],
+          "args": "GET services.json"
+        }
+      }
+    },
+    "gis_discover": {
+      "semantics": "发现接入方式 + 能力协商；网关在原生 discover 结果外再叠加统一 envelope（v0.2 另加治理节，见 gateway.py）",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_discover"
+          ],
+          "args": "无参数"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_discover"
+          ],
+          "args": "无参数"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_discover"
+          ],
+          "args": "无参数"
+        },
+        "qgis": {
+          "native": [
+            "qgis_discover"
+          ],
+          "args": "无参数"
+        },
+        "catalog": {
+          "native": [
+            "gis_catalog_list"
+          ],
+          "args": "目录后端无原生 discover：所有后端的 gis_discover 都由网关实时调 gis_catalog_list 聚合 counts，生成 data_catalog 一节"
+        },
+        "postgis": {
+          "native": [
+            "postgis_discover"
+          ],
+          "args": "无参数；discover 以 PostGIS_Full_Version 为版本证据（设计 §3.3，桥侧回包为准）"
+        },
+        "geoserver": {
+          "native": [
+            "geoserver_discover"
+          ],
+          "args": "无参数"
+        },
+        "istsos": {
+          "native": [
+            "istsos_discover"
+          ],
+          "args": "无参数"
+        },
+        "gdal": {
+          "native": [
+            "gdal_discover"
+          ],
+          "args": "本地 GDAL 版本 / 驱动计数 / 工具面"
+        },
+        "qgis-cli": {
+          "native": [
+            "qgis_discover"
+          ],
+          "args": "qgis_process CLI 版本 / 模式"
+        },
+        "iserver": {
+          "native": [
+            "iserver_discover"
+          ],
+          "args": "GET services.json 服务目录摘要"
+        }
+      }
+    },
+    "gis_project_info": {
+      "semantics": "工程概览；kind 按后端区分（workspace/project/document/catalog/database/service），不强行改名",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_workspace_info"
+          ],
+          "args": "无参数；kind=workspace"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_project_info"
+          ],
+          "args": "无参数；kind=project"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_document_info"
+          ],
+          "args": "无参数；kind=document"
+        },
+        "qgis": {
+          "native": [
+            "qgis_project_info"
+          ],
+          "args": "无参数；kind=project"
+        },
+        "catalog": {
+          "native": [],
+          "args": "网关本地合成 project{kind:catalog}，不调原生",
+          "gateway_local": true
+        },
+        "postgis": {
+          "native": [
+            "postgis_list_spatial_tables"
+          ],
+          "args": "数据库无工程概念：以空间表清单作概览，网关回包标 kind=database"
+        },
+        "geoserver": {
+          "native": [
+            "geoserver_list_workspaces"
+          ],
+          "args": "服务无工程概念：以工作区清单作概览，网关回包标 kind=service"
+        },
+        "istsos": {
+          "native": [
+            "istsos_discover"
+          ],
+          "args": "STA 服务根信息即 discover 结果，网关复用并标 kind=service"
+        },
+        "gdal": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis-cli": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "iserver": {
+          "native": [
+            "iserver_project_info"
+          ],
+          "args": "服务目录概览，kind=service"
+        }
+      }
+    },
+    "gis_list_maps": {
+      "semantics": "列地图",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_list_maps"
+          ],
+          "args": "无参数"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_list_maps"
+          ],
+          "args": "无参数"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_list_dataframes"
+          ],
+          "args": "ArcMap 无地图概念：改调数据框列表，回包 maps 每项标注 type=dataframe、顶层 maps_kind=dataframe"
+        },
+        "qgis": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "catalog": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "postgis": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "geoserver": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "istsos": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "gdal": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis-cli": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "iserver": {
+          "native": [
+            "iserver_list_maps"
+          ],
+          "args": "默认 GET map-china/rest/maps.json"
+        }
+      }
+    },
+    "gis_list_layers": {
+      "semantics": "列图层（下标、名称、显隐；source/broken 后端有才有，无则留空不编造）",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_list_layers"
+          ],
+          "args": "统一 map -> 原生 map（可选）"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_list_layers"
+          ],
+          "args": "统一 map -> 原生 map（可选）"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_list_layers"
+          ],
+          "args": "统一 map -> 原生 dataframe（可选）"
+        },
+        "qgis": {
+          "native": [
+            "qgis_list_layers"
+          ],
+          "args": "QGIS 图层是工程级的，无 map 参数；传了 map 会被忽略并回包附注"
+        },
+        "catalog": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "postgis": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "geoserver": {
+          "native": [
+            "geoserver_list_layers"
+          ],
+          "args": "统一 workspace -> 原生 workspace（可选，前缀过滤）"
+        },
+        "istsos": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "gdal": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis-cli": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "iserver": {
+          "native": [
+            "iserver_list_layers"
+          ],
+          "args": "统一 map -> 地图名；默认 map-china/China；GET layers.json"
+        }
+      }
+    },
+    "gis_list_datasets": {
+      "semantics": "列数据集（核心对象 dataset）：supermap=厂商工作空间数据源/数据集；catalog=平台目录登记数据集；postgis=数据库空间表；其余后端无此概念 NOT_SUPPORTED",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_list_datasources",
+            "supermap_list_datasets"
+          ],
+          "args": "两次原生调用合并回包：{datasources, datasets}；统一 datasource -> 原生 datasource（可选）"
+        },
+        "arcgis-pro": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "arcmap": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "catalog": {
+          "native": [
+            "gis_catalog_list"
+          ],
+          "args": "平台数据目录的登记数据集：回核心对象 dataset（每项加 object=dataset、stac_role=collection 标记），统一 type / commercial_use -> 原生同名过滤参数"
+        },
+        "postgis": {
+          "native": [
+            "postgis_list_spatial_tables"
+          ],
+          "args": "数据库空间表即服务端 dataset：回包带 source_kind=server_database，与厂商工作空间/平台目录显式区分"
+        },
+        "geoserver": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "istsos": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "gdal": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis-cli": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "iserver": {
+          "native": [
+            "iserver_list_datasets"
+          ],
+          "args": "默认 data-china/China；GET datasources + datasets.json"
+        }
+      }
+    },
+    "gis_set_layer_visible": {
+      "semantics": "视图级设图层显隐，只改显示状态、可逆",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_set_layer_visible"
+          ],
+          "args": "map（可选）/ layer / visible 同名透传"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_set_layer_visible"
+          ],
+          "args": "map（可选）/ layer / visible 同名透传"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_set_layer_visible"
+          ],
+          "args": "统一 map -> 原生 dataframe（可选）；layer / visible 同名透传"
+        },
+        "qgis": {
+          "native": [
+            "qgis_set_layer_visible"
+          ],
+          "args": "layer / visible 同名透传，无 map"
+        },
+        "catalog": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "postgis": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "geoserver": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "istsos": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "gdal": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis-cli": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "iserver": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        }
+      }
+    },
+    "gis_zoom_to_layer": {
+      "semantics": "视图级缩放到目标范围；统一参数 target={type: layer|dataset, id}，网关按后端翻译，翻译不了返回 NOT_SUPPORTED，不猜测",
+      "backends": {
+        "supermap": {
+          "native": [
+            "supermap_zoom_to_dataset"
+          ],
+          "args": "仅 target.type=dataset 可翻译：dataset<-target.id，datasource/map 可选透传；type=layer 返回 NOT_SUPPORTED"
+        },
+        "arcgis-pro": {
+          "native": [
+            "arcgis_zoom_to_layer"
+          ],
+          "args": "仅 target.type=layer：layer<-target.id，map 可选透传；type=dataset 返回 NOT_SUPPORTED"
+        },
+        "arcmap": {
+          "native": [
+            "arcmap_zoom_to_layer"
+          ],
+          "args": "仅 target.type=layer：layer<-target.id，统一 map -> 原生 dataframe；type=dataset 返回 NOT_SUPPORTED"
+        },
+        "qgis": {
+          "native": [
+            "qgis_zoom_to_layer"
+          ],
+          "args": "仅 target.type=layer：layer<-target.id；type=dataset 返回 NOT_SUPPORTED"
+        },
+        "catalog": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "postgis": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "geoserver": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "istsos": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "gdal": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "qgis-cli": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        },
+        "iserver": {
+          "native": null,
+          "note": "该后端无此能力，网关返回 NOT_SUPPORTED 并说明（或按注记本地处理，见 gis_list_maps/qgis）"
+        }
+      }
+    }
+  },
+  "backends": {
+    "supermap": {
+      "project_kind": "workspace",
+      "extension_namespaces": [
+        "gis.supermap.*"
+      ],
+      "extension_note": "v0.2：第一波 40 动词中 SuperMap 侧映射见 gis_discover 的 v02_verbs 节；待验映射登记但拒绝执行（UNVERIFIED_MAPPING）",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_maps",
+        "gis_list_layers",
+        "gis_list_datasets",
+        "gis_set_layer_visible",
+        "gis_zoom_to_layer",
+        "gis_list_algorithms",
+        "gis_create_dataset",
+        "gis_copy_dataset",
+        "gis_rename_dataset",
+        "gis_delete_dataset",
+        "gis_convert_format",
+        "gis_import_data",
+        "gis_buffer",
+        "gis_clip",
+        "gis_dissolve",
+        "gis_raster_calc",
+        "gis_reclassify",
+        "gis_zonal_statistics",
+        "gis_add_layer_from_catalog",
+        "gis_export_map_image"
+      ]
+    },
+    "arcgis-pro": {
+      "project_kind": "project",
+      "extension_namespaces": [
+        "gis.arcgis.*"
+      ],
+      "extension_note": "v0.2：GP 直调通道（gis_run_gp）只开白名单第一批（三箱 core 子集扣破坏类）；defer 硬拦截；许可/扩展/弃用三字段见 discover 的 gp_governance 节（种子位，未补齐前为 null）",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_maps",
+        "gis_list_layers",
+        "gis_set_layer_visible",
+        "gis_zoom_to_layer",
+        "gis_run_gp",
+        "gis_list_algorithms",
+        "gis_describe_algorithm",
+        "gis_create_dataset",
+        "gis_add_field",
+        "gis_delete_field",
+        "gis_calculate_field",
+        "gis_copy_dataset",
+        "gis_rename_dataset",
+        "gis_delete_dataset",
+        "gis_merge_datasets",
+        "gis_append_dataset",
+        "gis_assign_projection",
+        "gis_reproject",
+        "gis_convert_format",
+        "gis_import_data",
+        "gis_buffer",
+        "gis_clip",
+        "gis_overlay",
+        "gis_dissolve",
+        "gis_spatial_join",
+        "gis_raster_calc",
+        "gis_slope",
+        "gis_aspect",
+        "gis_hillshade",
+        "gis_zonal_statistics",
+        "gis_field_statistics",
+        "gis_add_layer_from_catalog",
+        "gis_export_map_image"
+      ]
+    },
+    "arcmap": {
+      "project_kind": "document",
+      "extension_namespaces": [
+        "gis.arcgis.*"
+      ],
+      "extension_note": "ArcMap 线冻结存量（决策 D3）：只保留基础 8 动词，不开 GP 通道、不新增第一波动词映射；桥内既有出图工具 arcmap_export_map_image 不升统一面",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_maps",
+        "gis_list_layers",
+        "gis_set_layer_visible",
+        "gis_zoom_to_layer"
+      ]
+    },
+    "qgis": {
+      "project_kind": "project",
+      "extension_namespaces": [
+        "gis.qgis.*"
+      ],
+      "extension_note": "v0.2：Processing 执行面经种子注册表治理（374 条 seed，实机枚举为真源，D6）；defer 与 executesql/原地覆写类硬拦截",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_maps",
+        "gis_list_layers",
+        "gis_set_layer_visible",
+        "gis_zoom_to_layer",
+        "gis_run_processing",
+        "gis_list_algorithms",
+        "gis_describe_algorithm",
+        "gis_add_field",
+        "gis_delete_field",
+        "gis_calculate_field",
+        "gis_copy_dataset",
+        "gis_merge_datasets",
+        "gis_assign_projection",
+        "gis_reproject",
+        "gis_convert_format",
+        "gis_import_data",
+        "gis_buffer",
+        "gis_clip",
+        "gis_overlay",
+        "gis_dissolve",
+        "gis_spatial_join",
+        "gis_raster_calc",
+        "gis_slope",
+        "gis_aspect",
+        "gis_hillshade",
+        "gis_reclassify",
+        "gis_zonal_statistics",
+        "gis_field_statistics",
+        "gis_pointcloud_info",
+        "gis_pointcloud_process",
+        "gis_add_layer_from_catalog",
+        "gis_export_map_image"
+      ]
+    },
+    "catalog": {
+      "project_kind": "catalog",
+      "extension_namespaces": [],
+      "extension_note": "平台数据目录：基础动词只开放 discover / project_info / list_datasets 三件；另作 V34/V39 的许可闸数据源（gis_catalog_describe），不直接进统一工具面",
+      "supported_verbs": [
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_datasets"
+      ]
+    },
+    "postgis": {
+      "project_kind": "database",
+      "extension_namespaces": [
+        "gis.postgis.*"
+      ],
+      "extension_note": "v0.2 新增服务端后端：统一动词落为参数化 SQL 模板（postgis_templates.json），永不裸 SQL；v0.3 Phase 4B 在隔离本地 PostgreSQL 16.15/PostGIS 3.6 实测 38/38 模板 + 网关 21/21；生产 DSN 未配置",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_datasets",
+        "gis_list_algorithms",
+        "gis_describe_algorithm",
+        "gis_create_dataset",
+        "gis_add_field",
+        "gis_delete_field",
+        "gis_calculate_field",
+        "gis_copy_dataset",
+        "gis_rename_dataset",
+        "gis_delete_dataset",
+        "gis_merge_datasets",
+        "gis_append_dataset",
+        "gis_assign_projection",
+        "gis_reproject",
+        "gis_convert_format",
+        "gis_import_data",
+        "gis_buffer",
+        "gis_clip",
+        "gis_overlay",
+        "gis_dissolve",
+        "gis_spatial_join",
+        "gis_raster_calc",
+        "gis_slope",
+        "gis_aspect",
+        "gis_hillshade",
+        "gis_reclassify",
+        "gis_zonal_statistics",
+        "gis_field_statistics",
+        "gis_spatial_filter",
+        "gis_measure",
+        "gis_validate_geometry",
+        "gis_serve_vector_tile"
+      ]
+    },
+    "geoserver": {
+      "project_kind": "service",
+      "extension_namespaces": [
+        "gis.geoserver.*"
+      ],
+      "extension_note": "v0.2 新增服务端后端：只读目录面经既有桥工具；发布（gis_publish_layer）走 REST 发布链，桥侧发布工具待实现（pending），网关先行翻译与许可闸",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_layers",
+        "gis_publish_layer",
+        "gis_list_services"
+      ]
+    },
+    "istsos": {
+      "project_kind": "service",
+      "extension_namespaces": [
+        "gis.istsos.*"
+      ],
+      "extension_note": "v0.2 新增服务端后端：STA 实体读补全 8/8——Things/Datastreams/Observations 经既有桥工具，其余 5 实体经桥侧通用实体查询（pending）；写面本波不开",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_services",
+        "gis_query_observations"
+      ]
+    },
+    "gdal": {
+      "project_kind": "file",
+      "extension_namespaces": [
+        "gis.gdal.*"
+      ],
+      "extension_note": "v0.3 新增本地 GDAL 后端首版：ping/discover + 格式转换/重投影/裁剪（矢量+栅格）+ 坡度/坡向/山体阴影；每条 ok 映射均由本地 GDAL 3.13.3 CLI 实跑；写操作只写新 target，target 已存在拒绝覆盖",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_reproject",
+        "gis_convert_format",
+        "gis_clip",
+        "gis_slope",
+        "gis_aspect",
+        "gis_hillshade"
+      ]
+    },
+    "qgis-cli": {
+      "project_kind": "processing",
+      "extension_namespaces": [
+        "gis.qgis.*"
+      ],
+      "extension_note": "v0.3 新增 QGIS 无头 Processing 后端：qgis_process CLI，只开 V02 执行面与 V03/V04 注册表；不提供打开工程/图层视图能力（那是 in-app qgis 桥的面，二者分开）",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_run_processing",
+        "gis_list_algorithms",
+        "gis_describe_algorithm"
+      ]
+    },
+    "iserver": {
+      "project_kind": "service",
+      "extension_namespaces": [
+        "gis.iserver.*"
+      ],
+      "extension_note": "v0.3 Phase 3：官方公开演示实例（demo-instance-verified，非本机、版本未确认）；仅 GET；服务目录 115、map-china 4 地图/China 13 子层、data-china 47 数据集、spatialanalyst 根/子资源形状已探针确认；空间分析执行未尝试（仅 GET）；不冒充本机校准",
+      "supported_verbs": [
+        "gis_ping",
+        "gis_discover",
+        "gis_project_info",
+        "gis_list_maps",
+        "gis_list_layers",
+        "gis_list_datasets",
+        "gis_list_services"
+      ]
+    }
+  }
+}

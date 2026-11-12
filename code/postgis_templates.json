@@ -1,0 +1,891 @@
+{
+ "generated_by": "gateway-v02/build_mapping.py（规格源为本文件 TEMPLATES）",
+ "policy": "参数化模板，永不裸 SQL：值走 %(name)s 绑定参数；标识符过正则白名单；枚举走封闭集合；平台不开 gis_run_sql 类动词",
+ "native_executor": "postgis_exec_template（桥侧待实现 pending；网关把渲染后的 sql+params 交桥侧以绑定参数执行）",
+ "templates": [
+  {
+   "template_id": "create_table",
+   "verbs": [
+    "gis_create_dataset"
+   ],
+   "level": "R1",
+   "description": "建表＋几何列（几何类型名走封闭枚举，SRID 走绑定参数；附加字段经 gis_add_field 逐个加）",
+   "sql": "CREATE TABLE {ident:table} ({ident:id_column} serial PRIMARY KEY, {ident:geometry_column} geometry({enum:geometry_type}, %(srid)s))",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "id_column": {
+     "kind": "ident_column",
+     "default": "id"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    },
+    "geometry_type": {
+     "kind": "enum",
+     "values": [
+      "Point",
+      "LineString",
+      "Polygon",
+      "MultiPoint",
+      "MultiLineString",
+      "MultiPolygon",
+      "Geometry"
+     ],
+     "default": "Geometry"
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    }
+   }
+  },
+  {
+   "template_id": "add_column",
+   "verbs": [
+    "gis_add_field"
+   ],
+   "level": "R2",
+   "description": "加字段（类型走封闭枚举）",
+   "sql": "ALTER TABLE {ident:table} ADD COLUMN {ident:column} {enum:sql_type}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "column": {
+     "kind": "ident_column"
+    },
+    "sql_type": {
+     "kind": "enum",
+     "values": [
+      "text",
+      "integer",
+      "bigint",
+      "double precision",
+      "boolean",
+      "date",
+      "timestamp",
+      "numeric"
+     ]
+    }
+   }
+  },
+  {
+   "template_id": "drop_column",
+   "verbs": [
+    "gis_delete_field"
+   ],
+   "level": "R3",
+   "description": "删字段（R3 额外闸在网关层）",
+   "sql": "ALTER TABLE {ident:table} DROP COLUMN {ident:column}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "column": {
+     "kind": "ident_column"
+    }
+   }
+  },
+  {
+   "template_id": "update_field",
+   "verbs": [
+    "gis_calculate_field"
+   ],
+   "level": "R2",
+   "description": "字段计算：表达式为受限片段槽（单表达式；禁分号、禁 DDL/DML 关键字），其余全绑定/标识符校验",
+   "sql": "UPDATE {ident:table} SET {ident:column} = {expr:expression}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "column": {
+     "kind": "ident_column"
+    },
+    "expression": {
+     "kind": "expression"
+    }
+   }
+  },
+  {
+   "template_id": "copy_table",
+   "verbs": [
+    "gis_copy_dataset"
+   ],
+   "level": "R1",
+   "description": "复制表为新表",
+   "sql": "CREATE TABLE {ident:target} AS SELECT * FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    }
+   }
+  },
+  {
+   "template_id": "rename_table",
+   "verbs": [
+    "gis_rename_dataset"
+   ],
+   "level": "R2",
+   "description": "表重命名",
+   "sql": "ALTER TABLE {ident:table} RENAME TO {ident:new_name}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "new_name": {
+     "kind": "ident_column"
+    }
+   }
+  },
+  {
+   "template_id": "drop_table",
+   "verbs": [
+    "gis_delete_dataset"
+   ],
+   "level": "R3",
+   "description": "删表（R3 额外闸在网关层）",
+   "sql": "DROP TABLE {ident:table}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    }
+   }
+  },
+  {
+   "template_id": "merge_tables",
+   "verbs": [
+    "gis_merge_datasets"
+   ],
+   "level": "R1",
+   "description": "多表 UNION ALL 建新表（inputs 每项过标识符校验后逐项拼入）",
+   "sql": "CREATE TABLE {ident:target} AS {union_all:inputs}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "inputs": {
+     "kind": "ident_tables"
+    }
+   },
+   "builder": "union_all"
+  },
+  {
+   "template_id": "insert_select",
+   "verbs": [
+    "gis_append_dataset"
+   ],
+   "level": "R2",
+   "description": "追加：INSERT INTO … SELECT",
+   "sql": "INSERT INTO {ident:target} SELECT * FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    }
+   }
+  },
+  {
+   "template_id": "set_srid",
+   "verbs": [
+    "gis_assign_projection"
+   ],
+   "level": "R2",
+   "description": "定义 SRID（只改元数据）：表名/列名在此以字符串值绑定传入 UpdateGeometrySRID",
+   "sql": "SELECT UpdateGeometrySRID(%(table)s, %(column)s, %(srid)s)",
+   "params": {
+    "table": {
+     "kind": "value"
+    },
+    "column": {
+     "kind": "value",
+     "default": "geom"
+    },
+    "srid": {
+     "kind": "value"
+    }
+   }
+  },
+  {
+   "template_id": "transform_create",
+   "verbs": [
+    "gis_reproject"
+   ],
+   "level": "R1",
+   "description": "重投影建新表（本模板只带几何列，属性列扩展在桥侧模板迭代时补，登记注记）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Transform({ident:geometry_column}, %(target_srid)s) AS {ident:geometry_column} FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    },
+    "target_srid": {
+     "kind": "value"
+    }
+   }
+  },
+  {
+   "template_id": "from_gdal_raster",
+   "verbs": [
+    "gis_import_data"
+   ],
+   "level": "R1",
+   "description": "栅格入库（文件路径走绑定参数）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_FromGDALRaster(%(file_path)s) AS rast",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "file_path": {
+     "kind": "value"
+    }
+   }
+  },
+  {
+   "template_id": "buffer_create",
+   "verbs": [
+    "gis_buffer"
+   ],
+   "level": "R1",
+   "description": "缓冲建新表（距离绑定参数）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT *, ST_Buffer({ident:geometry_column}, %(distance)s) AS geom_buffered FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    },
+    "distance": {
+     "kind": "value"
+    }
+   }
+  },
+  {
+   "template_id": "clip_vector",
+   "verbs": [
+    "gis_clip"
+   ],
+   "level": "R1",
+   "description": "矢量裁剪（与裁剪表相交并取交集几何）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT a.*, ST_Intersection(a.{ident:geometry_column}, b.{ident:geometry_column}) AS geom_clipped FROM {ident:source} a JOIN {ident:clip_table} b ON ST_Intersects(a.{ident:geometry_column}, b.{ident:geometry_column})",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "clip_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "clip_raster",
+   "verbs": [
+    "gis_clip"
+   ],
+   "level": "R1",
+   "description": "栅格裁剪：clip_by 为 WKT 时用绑定几何；为表名时网关改走 sql_table_clip 形态（2026-11-03 实机校准修复：ST_Clip 显式传 crop=true。）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Clip(rast, %(band)s, ST_GeomFromText(%(clip_wkt)s, %(srid)s), true) AS rast FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "band": {
+     "kind": "value",
+     "default": 1
+    },
+    "clip_wkt": {
+     "kind": "value"
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    },
+    "clip_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   },
+   "sql_table_clip": "CREATE TABLE {ident:target} AS SELECT ST_Clip(a.rast, b.{ident:geometry_column}, true) AS rast FROM {ident:source} a, {ident:clip_table} b"
+  },
+  {
+   "template_id": "overlay_intersection",
+   "verbs": [
+    "gis_overlay"
+   ],
+   "level": "R1",
+   "description": "叠加·相交",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Intersection(a.{ident:geometry_column}, b.{ident:geometry_column}) AS geom FROM {ident:source} a JOIN {ident:overlay_table} b ON ST_Intersects(a.{ident:geometry_column}, b.{ident:geometry_column})",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "overlay_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "overlay_union",
+   "verbs": [
+    "gis_overlay"
+   ],
+   "level": "R1",
+   "description": "叠加·并集（聚合）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Union(g) AS geom FROM (SELECT {ident:geometry_column} AS g FROM {ident:source} UNION ALL SELECT {ident:geometry_column} FROM {ident:overlay_table}) u",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "overlay_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "overlay_difference",
+   "verbs": [
+    "gis_overlay"
+   ],
+   "level": "R1",
+   "description": "叠加·差集（difference/erase）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Difference(a.{ident:geometry_column}, (SELECT ST_Union({ident:geometry_column}) FROM {ident:overlay_table})) AS geom FROM {ident:source} a",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "overlay_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "overlay_symdifference",
+   "verbs": [
+    "gis_overlay"
+   ],
+   "level": "R1",
+   "description": "叠加·对称差",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_SymDifference(a.{ident:geometry_column}, (SELECT ST_Union({ident:geometry_column}) FROM {ident:overlay_table})) AS geom FROM {ident:source} a",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "overlay_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "dissolve",
+   "verbs": [
+    "gis_dissolve"
+   ],
+   "level": "R1",
+   "description": "融合：ST_Union + GROUP BY（无分组字段时走 sql_nogroup）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT {idents:group_columns}, ST_Union({ident:geometry_column}) AS geom FROM {ident:source} GROUP BY {idents:group_columns}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "group_columns": {
+     "kind": "ident_columns"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   },
+   "sql_nogroup": "CREATE TABLE {ident:target} AS SELECT ST_Union({ident:geometry_column}) AS geom FROM {ident:source}"
+  },
+  {
+   "template_id": "spatial_join",
+   "verbs": [
+    "gis_spatial_join"
+   ],
+   "level": "R1",
+   "description": "空间连接（谓词走 fragments 封闭映射；连接表属性须由 attributes 显式列出，带出列别名为 join_<列名>、连接表几何为 join_geom，避免与源表同名列冲突——2026-11-03 实机校准定版，原 a.*, b.* 写法在同名列时建表失败）",
+   "sql": "",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "join_table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    },
+    "predicate": {
+     "kind": "enum",
+     "values": [
+      "intersects",
+      "contains",
+      "within"
+     ]
+    },
+    "attributes": {
+     "kind": "ident_columns"
+    }
+   },
+   "fragments": {
+    "predicate": {
+     "intersects": "ST_Intersects(a.{ident:geometry_column}, b.{ident:geometry_column})",
+     "contains": "ST_Contains(a.{ident:geometry_column}, b.{ident:geometry_column})",
+     "within": "ST_Within(a.{ident:geometry_column}, b.{ident:geometry_column})"
+    }
+   },
+   "builder": "spatial_join"
+  },
+  {
+   "template_id": "mapalgebra",
+   "verbs": [
+    "gis_raster_calc"
+   ],
+   "level": "R1",
+   "description": "栅格代数（ST_MapAlgebraExpr；表达式语法为 [rast.val]，文本作绑定值传入。2026-11-03 实机校准修复：原 ST_MapAlgebra＋[rast] 写法在 PostGIS 3.4 不成立。）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_MapAlgebraExpr(rast, %(band)s, %(pixeltype)s, %(expression)s) AS rast FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "band": {
+     "kind": "value",
+     "default": 1
+    },
+    "expression": {
+     "kind": "value"
+    },
+    "pixeltype": {
+     "kind": "value",
+     "default": "32BF"
+    }
+   }
+  },
+  {
+   "template_id": "slope",
+   "verbs": [
+    "gis_slope"
+   ],
+   "level": "R1",
+   "description": "坡度",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Slope(rast, %(band)s) AS rast FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "band": {
+     "kind": "value",
+     "default": 1
+    }
+   }
+  },
+  {
+   "template_id": "aspect",
+   "verbs": [
+    "gis_aspect"
+   ],
+   "level": "R1",
+   "description": "坡向",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Aspect(rast, %(band)s) AS rast FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "band": {
+     "kind": "value",
+     "default": 1
+    }
+   }
+  },
+  {
+   "template_id": "hillshade",
+   "verbs": [
+    "gis_hillshade"
+   ],
+   "level": "R1",
+   "description": "山体阴影（方位角/高度角带默认值）（2026-11-03 实机校准修复：补 pixeltype 参数，原调用无匹配签名。）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_HillShade(rast, %(band)s, %(pixeltype)s, %(azimuth)s, %(altitude)s) AS rast FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "band": {
+     "kind": "value",
+     "default": 1
+    },
+    "azimuth": {
+     "kind": "value",
+     "default": 315
+    },
+    "altitude": {
+     "kind": "value",
+     "default": 45
+    },
+    "pixeltype": {
+     "kind": "value",
+     "default": "32BF"
+    }
+   }
+  },
+  {
+   "template_id": "reclass",
+   "verbs": [
+    "gis_reclassify"
+   ],
+   "level": "R1",
+   "description": "重分类（reclassarg 由网关按 rules 数值校验后拼成字符串再绑定）（2026-11-03 实机校准修复：补 pixeltype 参数。）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT ST_Reclass(rast, %(band)s, %(reclassarg)s, %(pixeltype)s) AS rast FROM {ident:source}",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "source": {
+     "kind": "ident_table"
+    },
+    "band": {
+     "kind": "value",
+     "default": 1
+    },
+    "reclassarg": {
+     "kind": "value"
+    },
+    "pixeltype": {
+     "kind": "value",
+     "default": "32BF"
+    }
+   }
+  },
+  {
+   "template_id": "zonal_stats",
+   "verbs": [
+    "gis_zonal_statistics"
+   ],
+   "level": "R1",
+   "description": "分区统计（derived 组合模板：ST_Clip+ST_Union+ST_SummaryStats；统计列全集输出，桥侧按 statistics 裁剪）",
+   "sql": "CREATE TABLE {ident:target} AS SELECT z.{ident:zone_column} AS zone, s.count, s.sum, s.mean, s.max, s.min FROM {ident:zones_table} z JOIN LATERAL (SELECT (ST_SummaryStats(ST_Union(ST_Clip(r.rast, z.{ident:geometry_column})))).* FROM {ident:values_table} r) s ON true",
+   "params": {
+    "target": {
+     "kind": "ident_table"
+    },
+    "zones_table": {
+     "kind": "ident_table"
+    },
+    "values_table": {
+     "kind": "ident_table"
+    },
+    "zone_column": {
+     "kind": "ident_column",
+     "default": "id"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "field_stats",
+   "verbs": [
+    "gis_field_statistics"
+   ],
+   "level": "R0/R1",
+   "description": "字段统计：统计量走封闭枚举 fragments、字段走标识符校验，由网关 builder 拼 SELECT 列",
+   "sql": "",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "fields": {
+     "kind": "ident_columns"
+    },
+    "group_by": {
+     "kind": "ident_columns"
+    },
+    "statistics": {
+     "kind": "enum_list",
+     "values": [
+      "count",
+      "sum",
+      "avg",
+      "min",
+      "max"
+     ]
+    }
+   },
+   "builder": "field_stats"
+  },
+  {
+   "template_id": "spatial_filter",
+   "verbs": [
+    "gis_spatial_filter"
+   ],
+   "level": "R0",
+   "description": "空间谓词过滤：谓词走 fragments 封闭映射，参考几何 WKT/距离全绑定参数",
+   "sql": "",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "predicate": {
+     "kind": "enum",
+     "values": [
+      "intersects",
+      "contains",
+      "within",
+      "dwithin"
+     ]
+    },
+    "reference_wkt": {
+     "kind": "value"
+    },
+    "reference_table": {
+     "kind": "ident_table"
+    },
+    "distance": {
+     "kind": "value"
+    },
+    "limit": {
+     "kind": "value",
+     "default": 1000
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   },
+   "builder": "spatial_filter"
+  },
+  {
+   "template_id": "measure_distance",
+   "verbs": [
+    "gis_measure"
+   ],
+   "level": "R0",
+   "description": "两几何距离（WKT 全绑定）",
+   "sql": "SELECT ST_Distance(ST_GeomFromText(%(a_wkt)s, %(srid)s), ST_GeomFromText(%(b_wkt)s, %(srid)s)) AS value",
+   "params": {
+    "a_wkt": {
+     "kind": "value"
+    },
+    "b_wkt": {
+     "kind": "value"
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    }
+   }
+  },
+  {
+   "template_id": "measure_area",
+   "verbs": [
+    "gis_measure"
+   ],
+   "level": "R0",
+   "description": "面积",
+   "sql": "SELECT ST_Area(ST_GeomFromText(%(a_wkt)s, %(srid)s)) AS value",
+   "params": {
+    "a_wkt": {
+     "kind": "value"
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    }
+   }
+  },
+  {
+   "template_id": "measure_length",
+   "verbs": [
+    "gis_measure"
+   ],
+   "level": "R0",
+   "description": "长度",
+   "sql": "SELECT ST_Length(ST_GeomFromText(%(a_wkt)s, %(srid)s)) AS value",
+   "params": {
+    "a_wkt": {
+     "kind": "value"
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    }
+   }
+  },
+  {
+   "template_id": "measure_azimuth",
+   "verbs": [
+    "gis_measure"
+   ],
+   "level": "R0",
+   "description": "方位角",
+   "sql": "SELECT ST_Azimuth(ST_GeomFromText(%(a_wkt)s, %(srid)s), ST_GeomFromText(%(b_wkt)s, %(srid)s)) AS value",
+   "params": {
+    "a_wkt": {
+     "kind": "value"
+    },
+    "b_wkt": {
+     "kind": "value"
+    },
+    "srid": {
+     "kind": "value",
+     "default": 4326
+    }
+   }
+  },
+  {
+   "template_id": "validate_check",
+   "verbs": [
+    "gis_validate_geometry"
+   ],
+   "level": "R0",
+   "description": "有效性计数校验",
+   "sql": "SELECT count(*) AS total, count(*) FILTER (WHERE NOT ST_IsValid({ident:geometry_column})) AS invalid_count FROM {ident:table}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    }
+   }
+  },
+  {
+   "template_id": "validate_repair",
+   "verbs": [
+    "gis_validate_geometry"
+   ],
+   "level": "R2",
+   "description": "几何修复（输出新表）：修复后几何写入 <几何列>_repaired 列，原表不动。2026-11-03 实机校准定版：原地 UPDATE 在强类型几何列上会因 ST_MakeValid 改变几何类型（Polygon→MultiPolygon）而失败，故改为输出新表形态。",
+   "sql": "CREATE TABLE {ident:target} AS SELECT *, ST_MakeValid({ident:geometry_column}) AS {ident:geometry_column}_repaired FROM {ident:table}",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    },
+    "target": {
+     "kind": "ident_table"
+    }
+   }
+  },
+  {
+   "template_id": "mvt_tile",
+   "verbs": [
+    "gis_serve_vector_tile"
+   ],
+   "level": "R0",
+   "description": "MVT 瓦片直出：z/x/y 与图层名全绑定，属性列走标识符校验（2026-11-03 实机校准修复：槽位须带 :attributes 后缀；原误标的 builder 字段已去除，走通用替换路径。）",
+   "sql": "SELECT ST_AsMVT(q, %(layer_name)s, 4096, 'geom') AS tile FROM (SELECT ST_AsMVTGeom({ident:geometry_column}, ST_TileEnvelope(%(z)s, %(x)s, %(y)s)) AS geom{attr_columns:attributes} FROM {ident:table} WHERE {ident:geometry_column} && ST_TileEnvelope(%(z)s, %(x)s, %(y)s)) q",
+   "params": {
+    "table": {
+     "kind": "ident_table"
+    },
+    "geometry_column": {
+     "kind": "ident_column",
+     "default": "geom"
+    },
+    "layer_name": {
+     "kind": "value"
+    },
+    "z": {
+     "kind": "value"
+    },
+    "x": {
+     "kind": "value"
+    },
+    "y": {
+     "kind": "value"
+    },
+    "attributes": {
+     "kind": "ident_columns"
+    }
+   }
+  }
+ ]
+}

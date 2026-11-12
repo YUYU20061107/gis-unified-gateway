@@ -1,0 +1,2298 @@
+{
+  "generated_by": "gateway-v02/build_mapping.py（规格源为本文件 VERBS）",
+  "design_ref": "UPGRADE-DESIGN-V02.md §2（V01–V40）/ §4（确认门）",
+  "evidence_level": "离线协议自检：翻译与治理逻辑可由 mock 验证；标 pending 的桥侧执行工具未实现前实机不可用",
+  "verb_order": [
+    "gis_run_gp",
+    "gis_run_processing",
+    "gis_list_algorithms",
+    "gis_describe_algorithm",
+    "gis_create_dataset",
+    "gis_add_field",
+    "gis_delete_field",
+    "gis_calculate_field",
+    "gis_copy_dataset",
+    "gis_rename_dataset",
+    "gis_delete_dataset",
+    "gis_merge_datasets",
+    "gis_append_dataset",
+    "gis_assign_projection",
+    "gis_reproject",
+    "gis_convert_format",
+    "gis_import_data",
+    "gis_buffer",
+    "gis_clip",
+    "gis_overlay",
+    "gis_dissolve",
+    "gis_spatial_join",
+    "gis_raster_calc",
+    "gis_slope",
+    "gis_aspect",
+    "gis_hillshade",
+    "gis_reclassify",
+    "gis_zonal_statistics",
+    "gis_field_statistics",
+    "gis_spatial_filter",
+    "gis_measure",
+    "gis_validate_geometry",
+    "gis_serve_vector_tile",
+    "gis_publish_layer",
+    "gis_list_services",
+    "gis_query_observations",
+    "gis_pointcloud_info",
+    "gis_pointcloud_process",
+    "gis_add_layer_from_catalog",
+    "gis_export_map_image"
+  ],
+  "verbs": {
+    "gis_run_gp": {
+      "vid": "V01",
+      "level": "R1",
+      "confirm": "bridge",
+      "semantics": "ArcGIS GP 直调总通道：按 ArcPy 官方命名空间直调地理处理工具；白名单第一批（三箱 core 子集扣破坏类）外硬拦截，defer 回 DEFER_BLOCKED，破坏类回 DESTRUCTIVE_BLOCKED（强制走具名动词）",
+      "params": {
+        "backend": "s",
+        "tool": "s",
+        "args": "o",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_channel",
+          "native": "arcgis_run_gp",
+          "bridge_tool_status": "pending",
+          "wheel": "arcpy.*"
+        },
+        "arcmap": {
+          "status": "not_supported",
+          "note": "ArcMap 冻结存量（D3）：不开 GP 通道"
+        }
+      }
+    },
+    "gis_run_processing": {
+      "vid": "V02",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "QGIS Processing 执行面：按算法 ID 执行，执行前过种子注册表校验（存在性＋defer 硬拦截）；defer 与 §3.1 点名类（executesql/原地覆写/批量图集）回 DEFER_BLOCKED",
+      "params": {
+        "backend": "s",
+        "algorithm": "s",
+        "params": "o",
+        "confirm": "b"
+      },
+      "backends": {
+        "qgis": {
+          "status": "ok",
+          "kind": "processing_channel",
+          "native": "qgis_run_processing",
+          "bridge_tool_status": "existing",
+          "wheel": "Processing 注册表"
+        },
+        "qgis-cli": {
+          "status": "ok",
+          "kind": "processing_channel",
+          "native": "qgis_run_processing",
+          "bridge_tool_status": "existing",
+          "wheel": "qgis_process CLI（无头）"
+        }
+      }
+    },
+    "gis_list_algorithms": {
+      "vid": "V03",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "能力注册表枚举：列某后端的算法/工具注册表（ID、提供方、分组、平台判断、映射到的统一动词、状态 seed/verified）",
+      "params": {
+        "backend": "s",
+        "provider": "s",
+        "judgment": "s"
+      },
+      "backends": {
+        "qgis": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "processing",
+          "wheel": "Processing 种子账（普查 374 条）"
+        },
+        "qgis-cli": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "processing",
+          "wheel": "Processing 种子账（网关本地，不调 CLI）"
+        },
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "gp",
+          "wheel": "GP 注册表（普查 1833 条判断）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "templates",
+          "wheel": "PostGIS 模板清单"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "supermap",
+          "wheel": "iobjectspy 能力登记表（文件登记，非运行时枚举）"
+        }
+      }
+    },
+    "gis_describe_algorithm": {
+      "vid": "V04",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "算法自描述：取单个算法/工具的注册表条目与参数模式说明；种子账无参数模式处如实标 pending，不编造",
+      "params": {
+        "backend": "s",
+        "algorithm": "s"
+      },
+      "backends": {
+        "qgis": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "processing",
+          "wheel": "Processing 种子账条目（参数模式待桥侧 algorithmHelp 建账）"
+        },
+        "qgis-cli": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "processing",
+          "wheel": "Processing 种子账条目（网关本地，不调 CLI）"
+        },
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "gp",
+          "wheel": "GP 注册表条目（签名以 arcpy 实际导入为准）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "registry",
+          "registry": "templates",
+          "wheel": "PostGIS 模板条目"
+        }
+      }
+    },
+    "gis_create_dataset": {
+      "vid": "V05",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "新建空数据集（矢量/表/栅格容器），指定几何类型与坐标系",
+      "params": {
+        "backend": "s",
+        "name": "s",
+        "kind": "s",
+        "geometry_type": "s",
+        "srid": "n",
+        "fields": "a",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.management.CreateFeatureClass",
+              "wheel": "arcpy.management.CreateFeatureClass"
+            },
+            "table": {
+              "status": "unverified",
+              "kind": "gp_named",
+              "note": "CreateTable 函数名按命名规则生成，待 arcpy 实际导入核对（设计 §2 V05）",
+              "func": "arcpy.management.CreateTable",
+              "wheel": "arcpy.management.CreateTable"
+            },
+            "raster": {
+              "status": "not_supported",
+              "note": "栅格容器创建未在设计 §2 V05 的 Pro 映射内（CreateRasterDataset 未列），本波不开"
+            }
+          }
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_create_dataset",
+          "wheel": "iobjectspy.data.Datasource.create_dataset",
+          "bridge_tool_status": "pending"
+        },
+        "qgis": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "桥侧 PyQGIS 建层未在普查算法清单内、未核实，实现期以桥侧校准为准；不得用 Processing 冒名（设计 §2 V05）",
+          "native": "qgis_create_layer",
+          "wheel": "PyQGIS 建层（未核实）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "create_table",
+          "wheel": "CREATE TABLE + geometry 列（AddGeometryColumn 口径）"
+        }
+      }
+    },
+    "gis_add_field": {
+      "vid": "V06",
+      "level": "R2",
+      "confirm": "required",
+      "semantics": "给已有数据集加字段（原地改写）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "field": "o",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.AddField",
+          "wheel": "arcpy.management.AddField"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:addfieldtoattributestable",
+          "wheel": "native:addfieldtoattributestable"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "iobjectspy.data 字段接口具体名在 10.1.0 待验（设计 §2 V06）",
+          "native": "supermap_add_field",
+          "wheel": "iobjectspy.data 字段接口（待验）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "add_column",
+          "wheel": "ALTER TABLE ADD COLUMN"
+        }
+      }
+    },
+    "gis_delete_field": {
+      "vid": "V07",
+      "level": "R3",
+      "confirm": "required",
+      "semantics": "删字段（破坏性，R3 额外闸：confirm＋target_echo＋影响面预检二次确认）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "fields": "a",
+        "confirm": "b",
+        "target_echo": "s",
+        "preflight_id": "s"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.DeleteField",
+          "wheel": "arcpy.management.DeleteField"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:deletecolumn",
+          "wheel": "native:deletecolumn"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "iobjectspy.data 字段接口具体名在 10.1.0 待验（设计 §2 V07）",
+          "native": "supermap_delete_field",
+          "wheel": "iobjectspy.data 字段接口（待验）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "drop_column",
+          "wheel": "ALTER TABLE DROP COLUMN"
+        }
+      }
+    },
+    "gis_calculate_field": {
+      "vid": "V08",
+      "level": "R2",
+      "confirm": "required",
+      "semantics": "按表达式计算字段（原地改写，回包标 in_place=true）；表达式语言随后端原生",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "field": "s",
+        "expression": "s",
+        "language": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.CalculateField",
+          "wheel": "arcpy.management.CalculateField"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:fieldcalculator",
+          "wheel": "native:fieldcalculator"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "iobjectspy.data Recordset 更新具体接口待验（设计 §2 V08）",
+          "native": "supermap_calculate_field",
+          "wheel": "iobjectspy.data Recordset 更新（待验）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "update_field",
+          "wheel": "UPDATE … SET（表达式为受限片段，见模板说明）"
+        }
+      }
+    },
+    "gis_copy_dataset": {
+      "vid": "V09",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "同后端内复制数据集为新数据集（跨后端走 gis_convert_format）",
+      "params": {
+        "backend": "s",
+        "source": "s",
+        "target": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.Copy",
+          "wheel": "arcpy.management.Copy"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_copy_dataset",
+          "wheel": "iobjectspy.data Dataset 复制",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "copy_table",
+          "wheel": "CREATE TABLE AS SELECT"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "gdal:convertformat",
+          "wheel": "gdal:convertformat",
+          "note": "同库复制为近似映射（经格式转换写出），非原地复制语义"
+        }
+      }
+    },
+    "gis_rename_dataset": {
+      "vid": "V10",
+      "level": "R2",
+      "confirm": "required",
+      "semantics": "重命名数据集（原地改写）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "new_name": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.Rename",
+          "wheel": "arcpy.management.Rename"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_rename_dataset",
+          "wheel": "iobjectspy.data Dataset 重命名",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "rename_table",
+          "wheel": "ALTER TABLE RENAME"
+        },
+        "qgis": {
+          "status": "not_supported",
+          "note": "桥侧改名未核实，本波 NOT_SUPPORTED（设计 §2 V10）"
+        }
+      }
+    },
+    "gis_delete_dataset": {
+      "vid": "V11",
+      "level": "R3",
+      "confirm": "required",
+      "semantics": "删数据集（破坏性，R3 额外闸三件套；只许经本具名动词，总通道内硬拦）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "confirm": "b",
+        "target_echo": "s",
+        "preflight_id": "s"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.Delete",
+          "wheel": "arcpy.management.Delete"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_delete_dataset",
+          "wheel": "iobjectspy.data Dataset 删除",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "drop_table",
+          "wheel": "DROP TABLE"
+        },
+        "qgis": {
+          "status": "not_supported",
+          "note": "桥侧删除未核实，本波 NOT_SUPPORTED（设计 §2 V11）"
+        }
+      }
+    },
+    "gis_merge_datasets": {
+      "vid": "V12",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "多个同构数据集纵向合并为一个新数据集",
+      "params": {
+        "backend": "s",
+        "inputs": "a",
+        "target": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.Merge",
+          "wheel": "arcpy.management.Merge"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:mergevectorlayers",
+          "wheel": "native:mergevectorlayers"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "merge_tables",
+          "wheel": "UNION ALL 建表"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "iobjectspy.analyst/conversion 合并具体名待验（设计 §2 V12）",
+          "native": "supermap_merge_datasets",
+          "wheel": "iobjectspy 合并（待验）"
+        }
+      }
+    },
+    "gis_append_dataset": {
+      "vid": "V13",
+      "level": "R2",
+      "confirm": "required",
+      "semantics": "把源数据集追加进已存在的目标数据集（原地改写）",
+      "params": {
+        "backend": "s",
+        "source": "s",
+        "target": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.Append",
+          "wheel": "arcpy.management.Append"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "insert_select",
+          "wheel": "INSERT INTO … SELECT"
+        },
+        "qgis": {
+          "status": "not_supported",
+          "note": "以合并输出替换的近似路径未校准前 NOT_SUPPORTED（设计 §2 V13）"
+        },
+        "supermap": {
+          "status": "not_supported",
+          "note": "待验，本波 NOT_SUPPORTED（设计 §2 V13）"
+        }
+      }
+    },
+    "gis_assign_projection": {
+      "vid": "V14",
+      "level": "R2",
+      "confirm": "required",
+      "semantics": "只定义/覆写坐标系元数据，不动坐标值（与 gis_reproject 严格区分，回包标 metadata_only=true）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "srid": "n",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.DefineProjection",
+          "wheel": "arcpy.management.DefineProjection"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:assignprojection",
+          "wheel": "native:assignprojection"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "set_srid",
+          "wheel": "UpdateGeometrySRID / ST_SetSRID"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "数据集坐标系设置（PrjCoordSys）具体接口待验（设计 §2 V14）",
+          "native": "supermap_assign_projection",
+          "wheel": "iobjectspy PrjCoordSys 设置（待验）"
+        }
+      }
+    },
+    "gis_reproject": {
+      "vid": "V15",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "重投影到新数据集；overwrite=true（覆盖原数据）时升 R3 走额外闸",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "target_srid": "n",
+        "kind": "s",
+        "resampling": "s",
+        "overwrite": "b",
+        "confirm": "b",
+        "target_echo": "s",
+        "preflight_id": "s"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.management.Project",
+              "wheel": "arcpy.management.Project"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.management.ProjectRaster",
+              "wheel": "arcpy.management.ProjectRaster"
+            },
+            "table": {
+              "status": "not_supported",
+              "note": "表无坐标，重投影不适用"
+            }
+          }
+        },
+        "qgis": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "native:reprojectlayer",
+              "wheel": "native:reprojectlayer"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "gdal:warpreproject",
+              "wheel": "gdal:warpreproject"
+            },
+            "table": {
+              "status": "not_supported",
+              "note": "表无坐标，重投影不适用"
+            }
+          }
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "transform_create",
+          "wheel": "ST_Transform 建新表"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "iobjectspy 投影变换接口普查判 core 但具体名待验（设计 §2 V15）",
+          "native": "supermap_reproject",
+          "wheel": "iobjectspy 投影变换（待验）"
+        },
+        "gdal": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "native",
+              "native": "gdal_reproject",
+              "wheel": "ogr2ogr -t_srs",
+              "bridge_tool_status": "existing"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "native",
+              "native": "gdal_reproject",
+              "wheel": "gdalwarp -t_srs",
+              "bridge_tool_status": "existing"
+            },
+            "table": {
+              "status": "not_supported",
+              "note": "表无坐标，重投影不适用"
+            }
+          }
+        }
+      }
+    },
+    "gis_convert_format": {
+      "vid": "V16",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "单数据集格式互转（目标格式以驱动名指定）；同语义多轮子按后端环境择一，平台只维护语义映射",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "format": "s",
+        "kind": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "qgis": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "gdal:convertformat",
+              "wheel": "gdal:convertformat"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "gdal:translate",
+              "wheel": "gdal:translate"
+            },
+            "table": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "gdal:convertformat",
+              "wheel": "gdal:convertformat"
+            }
+          }
+        },
+        "arcgis-pro": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.conversion.ExportFeatures",
+              "wheel": "arcpy.conversion.ExportFeatures",
+              "note": "按目标格式在 Conversion core 子集内择一（ExportFeatures/FeatureClassToShapefile/FeaturesToJSON 等），桥侧定具体函数"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.conversion.RasterToOtherFormat",
+              "wheel": "arcpy.conversion.RasterToOtherFormat"
+            },
+            "table": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.conversion.ExportFeatures",
+              "wheel": "arcpy.conversion.ExportFeatures",
+              "note": "表导出在 Conversion core 子集内择一，桥侧定具体函数"
+            }
+          }
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_export_data",
+          "wheel": "iobjectspy.conversion export_*",
+          "bridge_tool_status": "pending"
+        },
+        "gdal": {
+          "variant_arg": "kind",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "native",
+              "native": "gdal_convert_format",
+              "wheel": "ogr2ogr -f",
+              "bridge_tool_status": "existing"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "native",
+              "native": "gdal_convert_format",
+              "wheel": "gdal_translate -of",
+              "bridge_tool_status": "existing"
+            },
+            "table": {
+              "status": "not_supported",
+              "note": "首版未单独验表格式转换（CSV/表→表），不冒充；矢量/栅格两形态已实跑"
+            }
+          }
+        },
+        "postgis": {
+          "variant_arg": "format",
+          "variants": {
+            "GeoJSON": {
+              "status": "ok",
+              "kind": "native",
+              "native": "postgis_export_geojson",
+              "bridge_tool_status": "existing",
+              "wheel": "ST_AsGeoJSON 导出（桥既有固定模板）"
+            },
+            "*": {
+              "status": "not_supported",
+              "note": "PostGIS 只支持表→GeoJSON 类轻量导出；文件级互转未核实，不冒名（设计 §2 V16）"
+            }
+          }
+        }
+      }
+    },
+    "gis_import_data": {
+      "vid": "V17",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "把外部文件/服务数据导入后端的工作空间或数据库（目标是后端内部数据集）",
+      "params": {
+        "backend": "s",
+        "source_uri": "s",
+        "target_name": "s",
+        "format": "s",
+        "kind": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_import_data",
+          "wheel": "iobjectspy.conversion import_*（80+ 格式）",
+          "bridge_tool_status": "pending"
+        },
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.conversion.FeatureClassToGeodatabase",
+          "wheel": "arcpy.conversion.FeatureClassToGeodatabase",
+          "note": "按源格式在 Conversion 的 To Geodatabase 族内择一（RasterToGeodatabase/JSONToFeatures/KMLToLayer 等），桥侧定具体函数"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "gdal:convertformat",
+          "wheel": "gdal:convertformat",
+          "note": "写目标库为近似映射（经 GDAL 转换落库），非原生导入语义"
+        },
+        "postgis": {
+          "variant_arg": "kind",
+          "variants": {
+            "raster": {
+              "status": "ok",
+              "kind": "template",
+              "template": "from_gdal_raster",
+              "wheel": "ST_FromGDALRaster（栅格入库）"
+            },
+            "vector": {
+              "status": "not_supported",
+              "note": "文件级矢量入库走 GDAL ogr2ogr 命令行轮子（平台外工具），登记不冒名（设计 §2 V17）"
+            },
+            "table": {
+              "status": "not_supported",
+              "note": "文件级表入库未核实，本波不开"
+            }
+          }
+        }
+      }
+    },
+    "gis_buffer": {
+      "vid": "V18",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "按距离生成缓冲区",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "distance": "n",
+        "distance_field": "s",
+        "dissolve": "b",
+        "unit": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.analysis.Buffer",
+          "wheel": "arcpy.analysis.Buffer"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:buffer",
+          "wheel": "native:buffer"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_create_buffer",
+          "wheel": "iobjectspy.analyst.create_buffer",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "buffer_create",
+          "wheel": "ST_Buffer"
+        }
+      }
+    },
+    "gis_clip": {
+      "vid": "V19",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "按裁剪数据集/范围裁剪（矢量/栅格按 input_type 分流）",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "clip_by": "s",
+        "target": "s",
+        "input_type": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "variant_arg": "input_type",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Clip",
+              "wheel": "arcpy.analysis.Clip"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.sa.ExtractByMask",
+              "wheel": "arcpy.sa.ExtractByMask"
+            }
+          }
+        },
+        "qgis": {
+          "variant_arg": "input_type",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "qgis:clip",
+              "wheel": "qgis:clip"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "gdal:cliprasterbymasklayer",
+              "wheel": "gdal:cliprasterbymasklayer"
+            }
+          }
+        },
+        "supermap": {
+          "variant_arg": "input_type",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "native",
+              "native": "supermap_overlay_clip",
+              "wheel": "iobjectspy.analyst.overlay（裁剪明列）",
+              "bridge_tool_status": "pending"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "native",
+              "native": "supermap_clip_raster",
+              "wheel": "iobjectspy.analyst.clip_raster",
+              "bridge_tool_status": "pending"
+            }
+          }
+        },
+        "postgis": {
+          "variant_arg": "input_type",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "template",
+              "template": "clip_vector",
+              "wheel": "ST_Intersection / ST_ClipByBox2D"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "template",
+              "template": "clip_raster",
+              "wheel": "ST_Clip"
+            }
+          }
+        },
+        "gdal": {
+          "variant_arg": "input_type",
+          "variants": {
+            "vector": {
+              "status": "ok",
+              "kind": "native",
+              "native": "gdal_clip",
+              "wheel": "ogr2ogr -clipsrc",
+              "bridge_tool_status": "existing"
+            },
+            "raster": {
+              "status": "ok",
+              "kind": "native",
+              "native": "gdal_clip",
+              "wheel": "gdalwarp -cutline",
+              "bridge_tool_status": "existing"
+            }
+          }
+        }
+      }
+    },
+    "gis_overlay": {
+      "vid": "V20",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "二元叠加 operation∈{intersect,union,difference,erase,identity,symdifference,update}；后端缺某式时该式回 NOT_SUPPORTED，不许用组合运算冒名替代",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "overlay": "s",
+        "target": "s",
+        "operation": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "variant_arg": "operation",
+          "variants": {
+            "intersect": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Intersect",
+              "wheel": "arcpy.analysis.Intersect"
+            },
+            "union": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Union",
+              "wheel": "arcpy.analysis.Union"
+            },
+            "difference": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Erase",
+              "wheel": "arcpy.analysis.Erase",
+              "note": "difference 语义在 ArcGIS 侧由 Erase 承担（输入减去叠加层）"
+            },
+            "erase": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Erase",
+              "wheel": "arcpy.analysis.Erase"
+            },
+            "identity": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Identity",
+              "wheel": "arcpy.analysis.Identity"
+            },
+            "symdifference": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.SymmetricalDifference",
+              "wheel": "arcpy.analysis.SymmetricalDifference"
+            },
+            "update": {
+              "status": "ok",
+              "kind": "gp_named",
+              "func": "arcpy.analysis.Update",
+              "wheel": "arcpy.analysis.Update"
+            }
+          }
+        },
+        "qgis": {
+          "variant_arg": "operation",
+          "variants": {
+            "intersect": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "qgis:intersection",
+              "wheel": "qgis:intersection"
+            },
+            "union": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "qgis:union",
+              "wheel": "qgis:union"
+            },
+            "difference": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "qgis:difference",
+              "wheel": "qgis:difference"
+            },
+            "erase": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "qgis:difference",
+              "wheel": "qgis:difference",
+              "note": "erase 语义在 QGIS 侧由 difference 承担"
+            },
+            "symdifference": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "qgis:symmetricaldifference",
+              "wheel": "qgis:symmetricaldifference"
+            },
+            "identity": {
+              "status": "not_supported",
+              "note": "普查 QGIS 清单中无 identity 同名条目，未核实，本波 NOT_SUPPORTED（设计 §2 V20）"
+            },
+            "update": {
+              "status": "not_supported",
+              "note": "普查 QGIS 清单中无 update 同名条目，未核实，本波 NOT_SUPPORTED（设计 §2 V20）"
+            }
+          }
+        },
+        "supermap": {
+          "variant_arg": "operation",
+          "variants": {
+            "intersect": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "iobjectspy.analyst.overlay 其余式在 10.1.0 待验，未验前不开（裁剪已明列，走 gis_clip）",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            },
+            "union": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "同 intersect 注",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            },
+            "difference": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "同 intersect 注",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            },
+            "erase": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "同 intersect 注",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            },
+            "identity": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "同 intersect 注",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            },
+            "symdifference": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "同 intersect 注",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            },
+            "update": {
+              "status": "unverified",
+              "kind": "native",
+              "note": "同 intersect 注",
+              "native": "supermap_overlay",
+              "wheel": "iobjectspy.analyst.overlay（待验）"
+            }
+          }
+        },
+        "postgis": {
+          "variant_arg": "operation",
+          "variants": {
+            "intersect": {
+              "status": "ok",
+              "kind": "template",
+              "template": "overlay_intersection",
+              "wheel": "ST_Intersection"
+            },
+            "union": {
+              "status": "ok",
+              "kind": "template",
+              "template": "overlay_union",
+              "wheel": "ST_Union"
+            },
+            "difference": {
+              "status": "ok",
+              "kind": "template",
+              "template": "overlay_difference",
+              "wheel": "ST_Difference"
+            },
+            "erase": {
+              "status": "ok",
+              "kind": "template",
+              "template": "overlay_difference",
+              "wheel": "ST_Difference",
+              "note": "erase 语义在 PostGIS 侧由 ST_Difference 承担"
+            },
+            "symdifference": {
+              "status": "ok",
+              "kind": "template",
+              "template": "overlay_symdifference",
+              "wheel": "ST_SymDifference"
+            },
+            "identity": {
+              "status": "not_supported",
+              "note": "无单函数对应，NOT_SUPPORTED（设计 §2 V20）"
+            },
+            "update": {
+              "status": "not_supported",
+              "note": "无单函数对应，NOT_SUPPORTED（设计 §2 V20）"
+            }
+          }
+        }
+      }
+    },
+    "gis_dissolve": {
+      "vid": "V21",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "按字段融合相邻/同值要素",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "fields": "a",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.management.Dissolve",
+          "wheel": "arcpy.management.Dissolve"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:dissolve",
+          "wheel": "native:dissolve"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_dissolve",
+          "wheel": "iobjectspy.analyst 融合（Dissolve）",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "dissolve",
+          "wheel": "ST_Union + GROUP BY"
+        }
+      }
+    },
+    "gis_spatial_join": {
+      "vid": "V22",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "按空间谓词把 join 层属性连接进 input 并写出新数据集",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "join": "s",
+        "target": "s",
+        "predicate": "s",
+        "summary": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.analysis.SpatialJoin",
+          "wheel": "arcpy.analysis.SpatialJoin"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:joinattributesbylocation",
+          "wheel": "native:joinattributesbylocation"
+        },
+        "postgis": {
+          "variant_arg": "predicate",
+          "variants": {
+            "intersects": {
+              "status": "ok",
+              "kind": "template",
+              "template": "spatial_join",
+              "wheel": "JOIN + ST_Intersects"
+            },
+            "contains": {
+              "status": "ok",
+              "kind": "template",
+              "template": "spatial_join",
+              "wheel": "JOIN + ST_Contains"
+            },
+            "within": {
+              "status": "ok",
+              "kind": "template",
+              "template": "spatial_join",
+              "wheel": "JOIN + ST_Within"
+            },
+            "nearest": {
+              "status": "not_supported",
+              "note": "最近邻连接需逐行相关子查询模板，未在本波模板集内，登记待补"
+            }
+          }
+        },
+        "supermap": {
+          "status": "not_supported",
+          "note": "iobjectspy.analyst 空间连接未逐项核实，未验前 NOT_SUPPORTED（设计 §2 V22）"
+        }
+      }
+    },
+    "gis_raster_calc": {
+      "vid": "V23",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "栅格代数计算（表达式语法随后端原生）",
+      "params": {
+        "backend": "s",
+        "inputs": "o",
+        "expression": "s",
+        "target": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.sa.RasterCalculator",
+          "wheel": "arcpy.sa.RasterCalculator"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:rastercalc",
+          "wheel": "native:rastercalc"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_raster_calc",
+          "wheel": "iobjectspy.analyst 栅格代数",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "mapalgebra",
+          "wheel": "ST_MapAlgebra（表达式版）"
+        }
+      }
+    },
+    "gis_slope": {
+      "vid": "V24",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "由 DEM 计算坡度",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "z_factor": "n",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.sa.Slope",
+          "wheel": "arcpy.sa.Slope"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "qgis:slope",
+          "wheel": "qgis:slope"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "iobjectspy.analyst 表面分析具体函数名待验（设计 §2 V24）",
+          "native": "supermap_slope",
+          "wheel": "iobjectspy.analyst 坡度（待验）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "slope",
+          "wheel": "ST_Slope"
+        },
+        "gdal": {
+          "status": "ok",
+          "kind": "native",
+          "native": "gdal_slope",
+          "wheel": "gdaldem slope",
+          "bridge_tool_status": "existing"
+        }
+      }
+    },
+    "gis_aspect": {
+      "vid": "V25",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "由 DEM 计算坡向",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "z_factor": "n",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.sa.Aspect",
+          "wheel": "arcpy.sa.Aspect"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "qgis:aspect",
+          "wheel": "qgis:aspect"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "同 gis_slope 注（设计 §2 V25）",
+          "native": "supermap_aspect",
+          "wheel": "iobjectspy.analyst 坡向（待验）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "aspect",
+          "wheel": "ST_Aspect"
+        },
+        "gdal": {
+          "status": "ok",
+          "kind": "native",
+          "native": "gdal_aspect",
+          "wheel": "gdaldem aspect",
+          "bridge_tool_status": "existing"
+        }
+      }
+    },
+    "gis_hillshade": {
+      "vid": "V26",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "由 DEM 计算山体阴影",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "z_factor": "n",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.sa.Hillshade",
+          "wheel": "arcpy.sa.Hillshade"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "qgis:hillshade",
+          "wheel": "qgis:hillshade"
+        },
+        "supermap": {
+          "status": "unverified",
+          "kind": "native",
+          "note": "同 gis_slope 注（设计 §2 V26）",
+          "native": "supermap_hillshade",
+          "wheel": "iobjectspy.analyst 山体阴影（待验）"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "hillshade",
+          "wheel": "ST_HillShade"
+        },
+        "gdal": {
+          "status": "ok",
+          "kind": "native",
+          "native": "gdal_hillshade",
+          "wheel": "gdaldem hillshade",
+          "bridge_tool_status": "existing"
+        }
+      }
+    },
+    "gis_reclassify": {
+      "vid": "V27",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "按规则表重分类栅格值",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "rules": "a",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "unverified",
+          "kind": "gp_named",
+          "note": "Reclassify 函数名按普查命名规则生成，须以 arcpy 实际导入为准（设计 §2 V27）",
+          "func": "arcpy.sa.Reclassify",
+          "wheel": "arcpy.sa.Reclassify"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:reclassifybytable",
+          "wheel": "native:reclassifybytable"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_reclassify",
+          "wheel": "iobjectspy.analyst 重分类",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "reclass",
+          "wheel": "ST_Reclass"
+        }
+      }
+    },
+    "gis_zonal_statistics": {
+      "vid": "V28",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "分区统计（zones × values → 统计表或栅格）",
+      "params": {
+        "backend": "s",
+        "zones": "s",
+        "values": "s",
+        "target": "s",
+        "statistics": "a",
+        "output": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.sa.ZonalStatisticsAsTable",
+          "wheel": "arcpy.sa.ZonalStatisticsAsTable"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "native:zonalstatisticsfb",
+          "wheel": "native:zonalstatisticsfb"
+        },
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_zonal_statistics",
+          "wheel": "iobjectspy.analyst 区域统计",
+          "bridge_tool_status": "pending"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "zonal_stats",
+          "wheel": "ST_SummaryStats + 空间连接（组合模板）",
+          "note": "derived：非单函数，由模板组合实现，注册表单独标 derived"
+        }
+      }
+    },
+    "gis_field_statistics": {
+      "vid": "V29",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "字段统计（output=result 时 R0；output=stored 落表时升 R1 需 confirm）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "fields": "a",
+        "group_by": "a",
+        "statistics": "a",
+        "output": "s",
+        "target": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "gp_named",
+          "func": "arcpy.analysis.SummaryStatistics",
+          "wheel": "arcpy.analysis.SummaryStatistics"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "qgis:basicstatisticsforfields",
+          "wheel": "qgis:basicstatisticsforfields"
+        },
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "field_stats",
+          "wheel": "SQL 聚合模板"
+        },
+        "supermap": {
+          "status": "not_supported",
+          "note": "iobjectspy.analyst 统计类具体名待验，未验前 NOT_SUPPORTED（设计 §2 V29）"
+        }
+      }
+    },
+    "gis_spatial_filter": {
+      "vid": "V30",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "PostGIS 服务端空间谓词过滤查要素子集（谓词封闭枚举，禁止裸 SQL）",
+      "params": {
+        "backend": "s",
+        "table": "s",
+        "predicate": "s",
+        "reference_wkt": "s",
+        "reference_table": "s",
+        "distance": "n",
+        "limit": "n"
+      },
+      "backends": {
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "spatial_filter",
+          "wheel": "ST_Intersects/ST_Contains/ST_Within/ST_DWithin + && 索引运算符"
+        }
+      }
+    },
+    "gis_measure": {
+      "vid": "V31",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "量测：距离/面积/长度/方位角（标量回包，不落表）",
+      "params": {
+        "backend": "s",
+        "operation": "s",
+        "a_wkt": "s",
+        "b_wkt": "s",
+        "srid": "n",
+        "use_geography": "b"
+      },
+      "backends": {
+        "postgis": {
+          "variant_arg": "operation",
+          "variants": {
+            "distance": {
+              "status": "ok",
+              "kind": "template",
+              "template": "measure_distance",
+              "wheel": "ST_Distance"
+            },
+            "area": {
+              "status": "ok",
+              "kind": "template",
+              "template": "measure_area",
+              "wheel": "ST_Area"
+            },
+            "length": {
+              "status": "ok",
+              "kind": "template",
+              "template": "measure_length",
+              "wheel": "ST_Length"
+            },
+            "azimuth": {
+              "status": "ok",
+              "kind": "template",
+              "template": "measure_azimuth",
+              "wheel": "ST_Azimuth"
+            }
+          }
+        }
+      }
+    },
+    "gis_validate_geometry": {
+      "vid": "V32",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "几何有效性校验（repair=true 时升 R2 原地修复，需 confirm）",
+      "params": {
+        "backend": "s",
+        "dataset": "s",
+        "repair": "b",
+        "confirm": "b"
+      },
+      "backends": {
+        "postgis": {
+          "check": {
+            "status": "ok",
+            "kind": "template",
+            "template": "validate_check",
+            "wheel": "ST_IsValid / ST_IsValidReason",
+            "note": "2026-11-03 实机校准定版：validate_check 在真实 PostGIS 38/38 PASS；网关执行器 postgis_exec_template 仍 pending"
+          },
+          "repair": {
+            "status": "ok",
+            "kind": "template",
+            "template": "validate_repair",
+            "wheel": "ST_MakeValid",
+            "note": "2026-11-03 实机校准定版：validate_repair 输出新表形态，真实 PostGIS 38/38 PASS；网关执行器仍 pending"
+          }
+        },
+        "arcgis-pro": {
+          "check": {
+            "status": "unverified",
+            "kind": "gp_named",
+            "note": "阶段 1 裁决（2026-11-05）：GP 注册表/白名单在册，但无 Pro 环境、未实机；与 leaves 账本 unverified 对齐",
+            "func": "arcpy.management.CheckGeometry",
+            "wheel": "arcpy.management.CheckGeometry"
+          },
+          "repair": {
+            "status": "unverified",
+            "kind": "gp_named",
+            "note": "阶段 1 裁决（2026-11-05）：GP 注册表/白名单在册，但无 Pro 环境、未实机；与 leaves 账本 unverified 对齐",
+            "func": "arcpy.management.RepairGeometry",
+            "wheel": "arcpy.management.RepairGeometry"
+          }
+        },
+        "qgis": {
+          "check": {
+            "status": "unverified",
+            "kind": "processing",
+            "note": "阶段 1 裁决（2026-11-05）：Processing 种子账仅名级，未实机；与 leaves 账本 unverified 对齐",
+            "algorithm": "qgis:checkvalidity",
+            "wheel": "qgis:checkvalidity"
+          },
+          "repair": {
+            "status": "unverified",
+            "kind": "processing",
+            "note": "阶段 1 裁决（2026-11-05）：Processing 种子账仅名级，未实机；与 leaves 账本 unverified 对齐",
+            "algorithm": "native:fixgeometries",
+            "wheel": "native:fixgeometries"
+          }
+        },
+        "supermap": {
+          "status": "not_supported",
+          "note": "B1/D5 2026-11-03 name_verified_function: topology_validate；本波维持 NOT_SUPPORTED（设计 §2 V32），不冒充可执行"
+        }
+      }
+    },
+    "gis_serve_vector_tile": {
+      "vid": "V33",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "按 XYZ 直出 MVT 矢量瓦片（回包为二进制句柄，不进 JSON 文本面）",
+      "params": {
+        "backend": "s",
+        "table": "s",
+        "z": "n",
+        "x": "n",
+        "y": "n",
+        "geometry_column": "s",
+        "attributes": "a"
+      },
+      "backends": {
+        "postgis": {
+          "status": "ok",
+          "kind": "template",
+          "template": "mvt_tile",
+          "wheel": "ST_AsMVT + ST_AsMVTGeom + ST_TileEnvelope"
+        }
+      }
+    },
+    "gis_publish_layer": {
+      "vid": "V34",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "经 GeoServer REST 发布链把数据集发布为图层（许可闸前置：catalog 来源先查许可）；发布成功回写目录发布记录（catalog 回写工具未就绪前回包标 pending）",
+      "params": {
+        "backend": "s",
+        "dataset_ref": "s",
+        "workspace": "s",
+        "style": "s",
+        "purpose": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "geoserver": {
+          "status": "ok",
+          "kind": "native",
+          "native": "geoserver_publish_layer",
+          "wheel": "REST 发布链 workspaces→datastores/coveragestores→featuretypes/coverages→layers/styles",
+          "bridge_tool_status": "pending",
+          "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+        }
+      }
+    },
+    "gis_list_services": {
+      "vid": "V35",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "列服务后端的 OGC 服务与能力摘要（discover 看后端与许可，本动词看服务面）",
+      "params": {
+        "backend": "s",
+        "service": "s"
+      },
+      "backends": {
+        "geoserver": {
+          "status": "ok",
+          "kind": "native",
+          "native": "geoserver_capabilities_summary",
+          "bridge_tool_status": "existing",
+          "wheel": "WMS/WFS GetCapabilities 摘要"
+        },
+        "istsos": {
+          "status": "ok",
+          "kind": "native",
+          "native": "istsos_service_root",
+          "wheel": "STA 服务根实体集索引",
+          "bridge_tool_status": "pending",
+          "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+        },
+        "supermap": {
+          "status": "not_supported",
+          "note": "iServer 服务面本波登记，NOT_SUPPORTED（设计 §2 V35）"
+        },
+        "iserver": {
+          "status": "ok",
+          "kind": "native",
+          "native": "iserver_list_services",
+          "bridge_tool_status": "existing",
+          "wheel": "GET /iserver/services.json",
+          "note": "demo-instance-verified：官方公开演示实例（非本机、版本未确认）；仅 GET；服务目录 115；map-china/data-china 已确认；spatial 根/子资源形状已确认，执行未尝试"
+        }
+      }
+    },
+    "gis_query_observations": {
+      "vid": "V36",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "STA 实体读全集（8 实体）＋ OData 查询下推（参数字段透传，不在网关本地过滤冒充下推）；写面本波不开",
+      "params": {
+        "backend": "s",
+        "entity": "s",
+        "datastream_id": "n",
+        "thing_id": "n",
+        "filter": "s",
+        "top": "n",
+        "skip": "n",
+        "count": "b",
+        "expand": "s",
+        "select": "s",
+        "orderby": "s"
+      },
+      "backends": {
+        "istsos": {
+          "variant_arg": "entity",
+          "variants": {
+            "Things": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_list_things",
+              "bridge_tool_status": "existing",
+              "wheel": "STA GET /Things"
+            },
+            "Datastreams": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_list_datastreams",
+              "bridge_tool_status": "existing",
+              "wheel": "STA GET /Datastreams"
+            },
+            "Observations": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_get_observations",
+              "bridge_tool_status": "existing",
+              "wheel": "STA GET /Datastreams(id)/Observations（须 datastream_id）"
+            },
+            "Locations": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_query_entities",
+              "wheel": "STA GET /Locations",
+              "bridge_tool_status": "pending",
+              "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+            },
+            "HistoricalLocations": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_query_entities",
+              "wheel": "STA GET /HistoricalLocations",
+              "bridge_tool_status": "pending",
+              "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+            },
+            "Sensors": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_query_entities",
+              "wheel": "STA GET /Sensors",
+              "bridge_tool_status": "pending",
+              "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+            },
+            "ObservedProperties": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_query_entities",
+              "wheel": "STA GET /ObservedProperties",
+              "bridge_tool_status": "pending",
+              "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+            },
+            "FeaturesOfInterest": {
+              "status": "ok",
+              "kind": "native",
+              "native": "istsos_query_entities",
+              "wheel": "STA GET /FeaturesOfInterest",
+              "bridge_tool_status": "pending",
+              "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格"
+            }
+          }
+        }
+      }
+    },
+    "gis_pointcloud_info": {
+      "vid": "V37",
+      "level": "R0",
+      "confirm": "none",
+      "semantics": "点云信息（PDAL info）",
+      "params": {
+        "backend": "s",
+        "input": "s"
+      },
+      "backends": {
+        "qgis": {
+          "status": "ok",
+          "kind": "processing",
+          "algorithm": "pdal:info",
+          "wheel": "pdal:info"
+        }
+      }
+    },
+    "gis_pointcloud_process": {
+      "vid": "V38",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "点云处理（PDAL 试点）：clip/reproject/thin_*/merge/convert/export_raster*/density/boundary 按 action 分流到 PDAL 算法",
+      "params": {
+        "backend": "s",
+        "input": "s",
+        "target": "s",
+        "action": "s",
+        "params": "o",
+        "confirm": "b"
+      },
+      "backends": {
+        "qgis": {
+          "variant_arg": "action",
+          "variants": {
+            "clip": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:clip",
+              "wheel": "pdal:clip"
+            },
+            "reproject": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:reproject",
+              "wheel": "pdal:reproject"
+            },
+            "thin_radius": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:thinbyradius",
+              "wheel": "pdal:thinbyradius"
+            },
+            "thin_decimate": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:thinbydecimate",
+              "wheel": "pdal:thinbydecimate"
+            },
+            "merge": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:merge",
+              "wheel": "pdal:merge"
+            },
+            "convert": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:convertformat",
+              "wheel": "pdal:convertformat"
+            },
+            "export_raster": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:exportraster",
+              "wheel": "pdal:exportraster"
+            },
+            "export_raster_tin": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:exportrastertin",
+              "wheel": "pdal:exportrastertin"
+            },
+            "density": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:density",
+              "wheel": "pdal:density"
+            },
+            "boundary": {
+              "status": "ok",
+              "kind": "processing",
+              "algorithm": "pdal:boundary",
+              "wheel": "pdal:boundary"
+            }
+          }
+        }
+      }
+    },
+    "gis_add_layer_from_catalog": {
+      "vid": "V39",
+      "level": "R1",
+      "confirm": "required",
+      "semantics": "「按目录找数据 → 加图层」链路：取 catalog dataset 的 storage.uri 加进目标 GIS 工程当前地图；许可闸前置（无 evidence_ref、或 commercial_use 与用途冲突时回 LICENSE_BLOCKED）",
+      "params": {
+        "backend": "s",
+        "catalog_id": "s",
+        "map": "s",
+        "purpose": "s",
+        "confirm": "b"
+      },
+      "backends": {
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_add_dataset_to_map",
+          "bridge_tool_status": "existing",
+          "wheel": "桥既有 add_dataset_to_map",
+          "note": "目录登记 id 作为数据集名透传，实机以工作空间内实际名为准"
+        },
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "native",
+          "native": "arcgis_add_layer_from_path",
+          "bridge_tool_status": "existing",
+          "wheel": "桥既有 add_layer_from_path（path=storage.uri）"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "native",
+          "native": "qgis_add_layer_from_path",
+          "bridge_tool_status": "existing",
+          "wheel": "桥既有 add_layer_from_path（path=storage.uri）"
+        },
+        "catalog": {
+          "status": "not_supported",
+          "note": "目录后端自身不开此动词（目标必须是 GIS 后端）"
+        }
+      }
+    },
+    "gis_export_map_image": {
+      "vid": "V40",
+      "level": "R1",
+      "confirm": "bridge",
+      "semantics": "当前地图/布局导出图片（各桥既有出图工具升入统一面）；PDF 批量图集类不在内（defer）",
+      "params": {
+        "backend": "s",
+        "map": "s",
+        "layout": "s",
+        "target_path": "s",
+        "format": "s",
+        "dpi": "n",
+        "confirm": "b"
+      },
+      "backends": {
+        "supermap": {
+          "status": "ok",
+          "kind": "native",
+          "native": "supermap_export_map_image",
+          "bridge_tool_status": "existing",
+          "wheel": "桥既有 export_map_image"
+        },
+        "arcgis-pro": {
+          "status": "ok",
+          "kind": "native",
+          "native": "arcgis_export_map_image",
+          "bridge_tool_status": "existing",
+          "wheel": "桥既有 export_map_image"
+        },
+        "arcmap": {
+          "status": "not_supported",
+          "note": "ArcMap 冻结存量（D3/派单口径）：桥内有 arcmap_export_map_image，本波不升统一面"
+        },
+        "qgis": {
+          "status": "ok",
+          "kind": "native",
+          "native": "qgis_export_map_image",
+          "bridge_tool_status": "existing",
+          "wheel": "桥既有 export_map_image"
+        }
+      }
+    }
+  },
+  "supermap_registry": {
+    "evidence_level": "文件登记（设计 §2 V03：本波为文件登记，非运行时枚举）",
+    "source": "UPGRADE-DESIGN-V02.md §2 的 SuperMap 映射行（iobjectspy 10.1.0 口径，D1）",
+    "entries": [
+      {
+        "wheel": "iobjectspy 能力登记表（文件登记，非运行时枚举）",
+        "verb": "gis_list_algorithms",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.data.Datasource.create_dataset",
+        "verb": "gis_create_dataset",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.data 字段接口（待验）",
+        "verb": "gis_add_field",
+        "status": "unverified",
+        "note": "iobjectspy.data 字段接口具体名在 10.1.0 待验（设计 §2 V06）"
+      },
+      {
+        "wheel": "iobjectspy.data 字段接口（待验）",
+        "verb": "gis_delete_field",
+        "status": "unverified",
+        "note": "iobjectspy.data 字段接口具体名在 10.1.0 待验（设计 §2 V07）"
+      },
+      {
+        "wheel": "iobjectspy.data Recordset 更新（待验）",
+        "verb": "gis_calculate_field",
+        "status": "unverified",
+        "note": "iobjectspy.data Recordset 更新具体接口待验（设计 §2 V08）"
+      },
+      {
+        "wheel": "iobjectspy.data Dataset 复制",
+        "verb": "gis_copy_dataset",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.data Dataset 重命名",
+        "verb": "gis_rename_dataset",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.data Dataset 删除",
+        "verb": "gis_delete_dataset",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy 合并（待验）",
+        "verb": "gis_merge_datasets",
+        "status": "unverified",
+        "note": "iobjectspy.analyst/conversion 合并具体名待验（设计 §2 V12）"
+      },
+      {
+        "wheel": "iobjectspy PrjCoordSys 设置（待验）",
+        "verb": "gis_assign_projection",
+        "status": "unverified",
+        "note": "数据集坐标系设置（PrjCoordSys）具体接口待验（设计 §2 V14）"
+      },
+      {
+        "wheel": "iobjectspy 投影变换（待验）",
+        "verb": "gis_reproject",
+        "status": "unverified",
+        "note": "iobjectspy 投影变换接口普查判 core 但具体名待验（设计 §2 V15）"
+      },
+      {
+        "wheel": "iobjectspy.conversion export_*",
+        "verb": "gis_convert_format",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.conversion import_*（80+ 格式）",
+        "verb": "gis_import_data",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst.create_buffer",
+        "verb": "gis_buffer",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（裁剪明列）",
+        "verb": "gis_clip",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst.clip_raster",
+        "verb": "gis_clip",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "iobjectspy.analyst.overlay 其余式在 10.1.0 待验，未验前不开（裁剪已明列，走 gis_clip）"
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "同 intersect 注"
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "同 intersect 注"
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "同 intersect 注"
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "同 intersect 注"
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "同 intersect 注"
+      },
+      {
+        "wheel": "iobjectspy.analyst.overlay（待验）",
+        "verb": "gis_overlay",
+        "status": "unverified",
+        "note": "同 intersect 注"
+      },
+      {
+        "wheel": "iobjectspy.analyst 融合（Dissolve）",
+        "verb": "gis_dissolve",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst 栅格代数",
+        "verb": "gis_raster_calc",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst 坡度（待验）",
+        "verb": "gis_slope",
+        "status": "unverified",
+        "note": "iobjectspy.analyst 表面分析具体函数名待验（设计 §2 V24）"
+      },
+      {
+        "wheel": "iobjectspy.analyst 坡向（待验）",
+        "verb": "gis_aspect",
+        "status": "unverified",
+        "note": "同 gis_slope 注（设计 §2 V25）"
+      },
+      {
+        "wheel": "iobjectspy.analyst 山体阴影（待验）",
+        "verb": "gis_hillshade",
+        "status": "unverified",
+        "note": "同 gis_slope 注（设计 §2 V26）"
+      },
+      {
+        "wheel": "iobjectspy.analyst 重分类",
+        "verb": "gis_reclassify",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "iobjectspy.analyst 区域统计",
+        "verb": "gis_zonal_statistics",
+        "status": "ok",
+        "note": null
+      },
+      {
+        "wheel": "桥既有 add_dataset_to_map",
+        "verb": "gis_add_layer_from_catalog",
+        "status": "ok",
+        "note": "目录登记 id 作为数据集名透传，实机以工作空间内实际名为准"
+      },
+      {
+        "wheel": "桥既有 export_map_image",
+        "verb": "gis_export_map_image",
+        "status": "ok",
+        "note": null
+      }
+    ]
+  }
+}

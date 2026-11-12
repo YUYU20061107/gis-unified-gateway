@@ -1,0 +1,161 @@
+{
+ "source": "introspect-result.json (iobjectspy 10.1.0.0, Py3.5.4, run 2026-11-03 by WorkBuddy, file via user upload)",
+ "reconciled_by": "Muse, 2026-11-03, full member inventory independently parsed (5051 pairs, 663 unique names)",
+ "scope": "B1: 16 supermap unverified leaves in leaves-full.json",
+ "verdicts": [
+  {
+   "vid": "V24",
+   "verb": "gis_slope",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "calculate_slope"
+  },
+  {
+   "vid": "V25",
+   "verb": "gis_aspect",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "calculate_aspect"
+  },
+  {
+   "vid": "V26",
+   "verb": "gis_hillshade",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "calculate_hill_shade",
+   "note": "script hint substring false negative"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "intersect",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "intersect"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "union",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "union"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "erase",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "erase"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "identity",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "identity"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "update",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "update"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "symdifference",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "xor",
+   "note": "native name differs, semantics correspond"
+  },
+  {
+   "vid": "V08",
+   "verb": "gis_calculate_field",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "update_attributes",
+   "note": "Recordset class also present; signature per Help at implementation"
+  },
+  {
+   "vid": "V14",
+   "verb": "gis_assign_projection",
+   "backend": "supermap",
+   "verdict": "name_verified_class",
+   "native": "PrjCoordSys (class/property path)"
+  },
+  {
+   "vid": "V15",
+   "verb": "gis_reproject",
+   "backend": "supermap",
+   "verdict": "name_verified_class",
+   "native": "CoordSysTranslator (class method path)"
+  },
+  {
+   "vid": "V20",
+   "verb": "gis_overlay",
+   "variant": "difference",
+   "backend": "supermap",
+   "verdict": "pending_check",
+   "note": "no difference function at module level; check OverlayMode enum vs erase in batch 1"
+  },
+  {
+   "vid": "V06",
+   "verb": "gis_add_field",
+   "backend": "supermap",
+   "verdict": "unresolved",
+   "note": "no module-level function; class-method drill-down round 2"
+  },
+  {
+   "vid": "V07",
+   "verb": "gis_delete_field",
+   "backend": "supermap",
+   "verdict": "unresolved",
+   "note": "no delete* function at module level; class-method drill-down round 2"
+  },
+  {
+   "vid": "V12",
+   "verb": "gis_merge_datasets",
+   "backend": "supermap",
+   "verdict": "unresolved",
+   "note": "only append_to_network_dataset (network-specific); class-method drill-down round 2"
+  }
+ ],
+ "d5_bonus": [
+  {
+   "vid": "V32",
+   "verb": "gis_validate_geometry",
+   "backend": "supermap",
+   "verdict": "name_verified_function",
+   "native": "topology_validate"
+  },
+  {
+   "vid": "V13",
+   "verb": "gis_append_dataset",
+   "backend": "supermap",
+   "verdict": "unresolved"
+  },
+  {
+   "vid": "V22",
+   "verb": "gis_spatial_join",
+   "backend": "supermap",
+   "verdict": "unresolved",
+   "note": "JoinItem/JoinType are attribute-join classes; gateway composition candidate"
+  },
+  {
+   "vid": "V29",
+   "verb": "gis_field_statistics",
+   "backend": "supermap",
+   "verdict": "unresolved",
+   "note": "grid_* statistics are raster; vector field statistics not found at module level"
+  }
+ ],
+ "registry_warts": [
+  "leaves-full.json: V32 postgis/arcgis-pro/qgis leaves have empty status; fix during G3 tagging"
+ ]
+}

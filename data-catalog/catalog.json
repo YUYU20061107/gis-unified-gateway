@@ -1,0 +1,464 @@
+{
+  "title": "GIS 平台数据目录（data-catalog）",
+  "generated_by": "data-catalog/build_catalog.py",
+  "generated_at": "2026-11-02T04:59:26Z",
+  "evidence_level": "登记索引：status=registered 表示仅登记、未打开数据本体验证；许可口径引 MATERIALS-INDEX 第二部分并逐条带 evidence_ref。",
+  "counts": {
+    "total": 9,
+    "by_type": {
+      "dem": 3,
+      "raster": 1,
+      "network": 1,
+      "imagery": 2,
+      "vector": 2
+    },
+    "by_license": {
+      "JAXA AW3D30 Terms of Use": 1,
+      "Copernicus DEM terms (free access for registered users, attribution string required)": 1,
+      "CC BY 4.0": 1,
+      "HydroSHEDS v1 license / v2 CC BY 4.0": 1,
+      "USGS Public Domain (no restrictions)": 1,
+      "Public Domain (Natural Earth Terms)": 1,
+      "ODbL 1.0": 1,
+      "Sentinel Data Legal Notice (free, full and open)": 1,
+      "USGS open distribution (public domain, 通行口径)": 1
+    },
+    "by_commercial_use": {
+      "True": 9
+    }
+  },
+  "datasets": [
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球陆地",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "≈30m 全球陆地 DSM；经 JAXA EORC 注册下载；本体格式未在登记来源中逐字核实"
+      },
+      "id": "aw3d30",
+      "license": {
+        "attribution": "对外提供产品/服务须显示 JAXA 提供、发表时标 ©JAXA（官方 Terms）",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B2 · ALOS AW3D30 行",
+        "name": "JAXA AW3D30 Terms of Use"
+      },
+      "name": {
+        "en": "ALOS World 3D - 30m (AW3D30) DSM",
+        "zh": "ALOS 全球 30m DSM（AW3D30）"
+      },
+      "quality_notes": "仅登记、未下载本体。DSM（含地物高度）非 DTM，裸地高程应用时注意。",
+      "source": {
+        "provider": "JAXA EORC",
+        "retrieved_at": "2026-11-02",
+        "upstream": "JAXA ALOS PRISM",
+        "url": "https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://www.eorc.jaxa.jp/ALOS/en/dataset/aw3d30/aw3d30_e.htm"
+      },
+      "type": "dem",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "GLO-30 ≈30m / GLO-90 ≈90m 全球；本体格式未在登记来源中逐字核实"
+      },
+      "id": "copernicus-dem",
+      "license": {
+        "attribution": "须按官方串署名（© DLR / © Airbus … provided under COPERNICUS by EU and ESA，以官方原文为准）",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B2 · Copernicus DEM 行",
+        "name": "Copernicus DEM terms (free access for registered users, attribution string required)"
+      },
+      "name": {
+        "en": "Copernicus DEM (GLO-30 / GLO-90)",
+        "zh": "哥白尼 DEM（GLO-30 / GLO-90）"
+      },
+      "quality_notes": "仅登记、未下载本体；获取需在 Copernicus Data Space 注册。EEA-10（10m，仅欧洲、限特定用户类别）不在本登记范围。",
+      "source": {
+        "provider": "Copernicus Data Space / ESA",
+        "retrieved_at": "2026-11-02",
+        "upstream": "EU / ESA Copernicus Programme（数据由 DLR、Airbus 等提供）",
+        "url": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM"
+      },
+      "type": "dem",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球",
+        "temporal_end": "2021",
+        "temporal_start": "2020"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "10m 全球土地覆盖，11 类，2020 与 2021 两期；经官网 / AWS Open Data 获取；本体格式未在登记来源中逐字核实"
+      },
+      "id": "esa-worldcover",
+      "license": {
+        "attribution": "署名（CC BY 4.0）；广告/商业推广用途有署名送审细节（due@esa.int），见官方 Data Access 页",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B3 · ESA WorldCover 行",
+        "name": "CC BY 4.0"
+      },
+      "name": {
+        "en": "ESA WorldCover 10m global land cover",
+        "zh": "ESA WorldCover 全球 10m 土地覆盖"
+      },
+      "quality_notes": "仅登记、未下载本体。官方口径：free of charge, without restriction of use（CC BY 4.0）。",
+      "source": {
+        "provider": "ESA WorldCover",
+        "retrieved_at": "2026-11-02",
+        "upstream": "ESA WorldCover project",
+        "url": "https://esa-worldcover.org/en/data-access"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://esa-worldcover.org/en/data-access"
+      },
+      "type": "raster",
+      "update": {
+        "frequency": "不定期（当前 2020/2021 两期）",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "流向/汇流累计/流域等水文产品，源于 SRTM 3″；v1 全球，v2 当前仅美洲；本体格式未在登记来源中逐字核实"
+      },
+      "id": "hydrosheds",
+      "license": {
+        "attribution": "署名；v1 受其自有协议（署名/再分发细则以协议为准），v2 标 CC BY 4.0",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B5 · HydroSHEDS 行",
+        "name": "HydroSHEDS v1 license / v2 CC BY 4.0"
+      },
+      "name": {
+        "en": "HydroSHEDS global hydrography",
+        "zh": "HydroSHEDS 全球水文数据（流向/汇流/流域）"
+      },
+      "quality_notes": "仅登记、未下载本体。60°N 以北质量下降（源数据所限）。",
+      "source": {
+        "provider": "HydroSHEDS",
+        "retrieved_at": "2026-11-02",
+        "upstream": "HydroSHEDS（源于 SRTM 3″ 高程）",
+        "url": "https://www.hydrosheds.org/products/hydrosheds"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://www.hydrosheds.org/products/hydrosheds"
+      },
+      "type": "network",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "v1（全球）；v2 仅美洲"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "30m 多光谱 / 15m 全色，全球；经 USGS EarthExplorer / AWS 镜像获取（登记来源未记直达 URL，故 source.url 与 storage.uri 标 unknown）"
+      },
+      "id": "landsat",
+      "license": {
+        "attribution": "无使用或再分发限制，仅请求注明来源（USGS FAQ 原文口径）",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B4 · Landsat 8/9 及存档行",
+        "name": "USGS Public Domain (no restrictions)"
+      },
+      "name": {
+        "en": "Landsat 8/9 and archive imagery",
+        "zh": "Landsat 8/9 及存档影像"
+      },
+      "quality_notes": "仅登记、未下载本体。本条目是影像源（持续存档），具体景/条目层（STAC Item）留待接入真实目录时展开。",
+      "source": {
+        "provider": "USGS",
+        "retrieved_at": "2026-11-02",
+        "upstream": "USGS / NASA Landsat Program",
+        "url": "unknown"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "unknown"
+      },
+      "type": "imagery",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球（小比例尺）",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "Shapefile",
+        "spec": "1:10m / 1:50m / 1:110m 多比例尺整包下载；Admin 0/1 文化矢量与 50m 物理矢量（roads/railroads/rivers/lakes）"
+      },
+      "id": "natural-earth",
+      "license": {
+        "attribution": "无需许可与署名（官方 Terms：public domain，可个人/教育/商用）",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B1 · Natural Earth Admin 0/1 行；B5 · Natural Earth 路网/水系行",
+        "name": "Public Domain (Natural Earth Terms)"
+      },
+      "name": {
+        "en": "Natural Earth vector base data (Admin 0/1, roads, rivers, lakes)",
+        "zh": "Natural Earth 全球基础矢量（行政界线、路网、水系）"
+      },
+      "quality_notes": "仅登记、未下载本体。国界为 de facto 画法，未经我国地图审核：涉中国国界/行政界线不得直接上架公开展示（MATERIALS-INDEX B0 红线）。Admin-1 有 3 属性列源于 GADM，顾虑时删列。",
+      "source": {
+        "provider": "Natural Earth",
+        "retrieved_at": "2026-11-02",
+        "upstream": "Natural Earth contributors",
+        "url": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/"
+      },
+      "type": "vector",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球（城市区最密，中国区完备度参差）",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "PBF / API",
+        "spec": "Planet PBF 整包、Geofabrik 区域切片、Overpass API 按需查询"
+      },
+      "id": "openstreetmap",
+      "license": {
+        "attribution": "署名 © OpenStreetMap contributors；衍生数据库公开使用须以 ODbL 同许可提供（share-alike）；渲染图只需署名",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B5 · OpenStreetMap 行；B1 · OSM 边界行",
+        "name": "ODbL 1.0"
+      },
+      "name": {
+        "en": "OpenStreetMap planet data (POI, roads, water)",
+        "zh": "OpenStreetMap 全球矢量（POI、路网、水系）"
+      },
+      "quality_notes": "仅登记、未下载本体。官方瓦片有 Tile Usage Policy，商用应自建瓦片、不要直连官方瓦片服务。中国国界/行政界线未经我国地图审核，不得直接上架公开展示（MATERIALS-INDEX B0 红线）。",
+      "source": {
+        "provider": "OpenStreetMap Foundation / community",
+        "retrieved_at": "2026-11-02",
+        "upstream": "OpenStreetMap contributors",
+        "url": "https://wiki.openstreetmap.org/w/index.php?title=Planet.osm&oldid=2599378"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://wiki.openstreetmap.org/w/index.php?title=Planet.osm&oldid=2599378"
+      },
+      "type": "vector",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -90.0,
+          180.0,
+          90.0
+        ],
+        "crs": "unknown",
+        "region_name": "全球陆地",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "10/20/60m 多光谱，5 天重访；经 Copernicus Data Space（Browser / OData / S3）获取；产品格式未在登记来源中逐字核实"
+      },
+      "id": "sentinel-2",
+      "license": {
+        "attribution": "unknown",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B4 · Sentinel-2 行",
+        "name": "Sentinel Data Legal Notice (free, full and open)"
+      },
+      "name": {
+        "en": "Sentinel-2 multispectral imagery",
+        "zh": "哨兵二号多光谱影像"
+      },
+      "quality_notes": "仅登记、未下载本体。本条目是影像源（持续更新的任务数据），不是静态景集合；具体景/条目层（STAC Item）留待接入真实目录时展开。",
+      "source": {
+        "provider": "Copernicus / ESA",
+        "retrieved_at": "2026-11-02",
+        "upstream": "ESA Copernicus Sentinel-2 mission",
+        "url": "https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-missions/sentinel-2"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://dataspace.copernicus.eu/data-collections/copernicus-sentinel-missions/sentinel-2"
+      },
+      "type": "imagery",
+      "update": {
+        "frequency": "持续获取（重访周期 5 天）",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    },
+    {
+      "coverage": {
+        "bbox": [
+          -180.0,
+          -56.0,
+          180.0,
+          60.0
+        ],
+        "crs": "unknown",
+        "region_name": "60°N–56°S 全球陆地",
+        "temporal_end": "unknown",
+        "temporal_start": "unknown"
+      },
+      "format": {
+        "name": "unknown",
+        "spec": "≈30m（1 Arc-Second Global）；经 USGS EarthExplorer 免费注册下载；本体格式未在登记来源中逐字核实"
+      },
+      "id": "srtm",
+      "license": {
+        "attribution": "unknown",
+        "commercial_use": true,
+        "evidence_ref": "MATERIALS-INDEX.md 第二部分 B2 · SRTM 1″ Global 行",
+        "name": "USGS open distribution (public domain, 通行口径)"
+      },
+      "name": {
+        "en": "SRTM 1 Arc-Second Global DEM",
+        "zh": "SRTM 全球 1 弧秒 DEM"
+      },
+      "quality_notes": "仅登记、未下载本体。许可注意：USGS 称 open distribution，public domain 为通行口径，但 USGS 逐字许可专条本轮未核实（见 MATERIALS-INDEX 未核实清单），引用许可时按此口径标注。",
+      "source": {
+        "provider": "USGS EROS",
+        "retrieved_at": "2026-11-02",
+        "upstream": "NASA / USGS Shuttle Radar Topography Mission",
+        "url": "https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-shuttle-radar-topography-mission-srtm-1"
+      },
+      "status": "registered",
+      "storage": {
+        "checksum": null,
+        "size_bytes": null,
+        "uri": "https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-shuttle-radar-topography-mission-srtm-1"
+      },
+      "type": "dem",
+      "update": {
+        "frequency": "unknown",
+        "last_checked": "2026-11-02",
+        "upstream_version": "unknown"
+      }
+    }
+  ]
+}

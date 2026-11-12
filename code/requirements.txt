@@ -1,0 +1,5 @@
+# gateway v0.2 无第三方依赖：仅 Python 3 标准库（json/os/re/sys/hashlib/
+# subprocess/threading）。与 gateway-v0 / gateway-v01 同口径。
+# 运行：python3 gateway.py（stdio MCP 服务端，配置见 backends.json，
+# 可用环境变量 GIS_GATEWAY_BACKENDS 指向另一份配置）。
+# 自检：python3 build_mapping.py && python3 selftest.py

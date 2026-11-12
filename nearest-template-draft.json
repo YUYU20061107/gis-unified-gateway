@@ -1,0 +1,44 @@
+{
+ "_draft_note": "v0.3 D1 草案（2026-11-03 夜班）：补 V22 gis_spatial_join / postgis / nearest 变体。未并入 v0.2 任何文件；待实机测试通过＋鱼鱼过目后随 v0.3 正式并入 postgis_templates.json 与 verbs.json。",
+ "_known_risks": [
+  "已实测证实（2026-11-03 C3＋D1）：a.*, b.* 在两表同名列（如 id）时建表必失败；定版解法＝连接表属性经 attributes 显式列出、别名为 join_<列名>、连接表几何为 join_geom（与 spatial_join builder 同一约定）。原样 SQL 实测失败、别名化变体实测通过且最近邻语义正确。",
+  "<-> 对点几何为精确距离，对面/线为包围盒中心距离，语义须在动词文档注明",
+  "并入时需在 gateway.py 新增 builder 分支 spatial_join_nearest（组装别名列＋LATERAL KNN），不能走通用模板替换路径"
+ ],
+ "_proposed_verbs_json_change": {
+  "V22 gis_spatial_join / backends.postgis / variants.nearest": {
+   "kind": "template",
+   "status": "unverified",
+   "template": "spatial_join_nearest",
+   "wheel": "JOIN LATERAL + <-> (KNN)"
+  }
+ },
+ "template": {
+  "description": "空间连接·最近邻：对源表逐行取连接表中几何距离最近的一行（KNN <-> 算子，可走 GiST 索引）；距离以两表几何列同 SRID 为前提，跨 SRID 不自动变换（2026-11-03 修订：改为 builder 组装形态，与 spatial_join builder 同一列别名约定；SQL 由 builder 拼装，模板内不再写 a.*, b.*。）",
+  "level": "R1",
+  "params": {
+   "geometry_column": {
+    "default": "geom",
+    "kind": "ident_column"
+   },
+   "join_table": {
+    "kind": "ident_table"
+   },
+   "source": {
+    "kind": "ident_table"
+   },
+   "target": {
+    "kind": "ident_table"
+   },
+   "attributes": {
+    "kind": "ident_columns"
+   }
+  },
+  "sql": "",
+  "template_id": "spatial_join_nearest",
+  "verbs": [
+   "gis_spatial_join"
+  ],
+  "builder": "spatial_join_nearest"
+ }
+}

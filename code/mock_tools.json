@@ -1,0 +1,115 @@
+{
+  "supermap": [
+    "supermap_add_dataset_to_map",
+    "supermap_clip_raster",
+    "supermap_copy_dataset",
+    "supermap_create_buffer",
+    "supermap_create_dataset",
+    "supermap_delete_dataset",
+    "supermap_discover",
+    "supermap_dissolve",
+    "supermap_export_data",
+    "supermap_export_map_image",
+    "supermap_import_data",
+    "supermap_list_datasets",
+    "supermap_list_datasources",
+    "supermap_list_layers",
+    "supermap_list_maps",
+    "supermap_overlay_clip",
+    "supermap_ping",
+    "supermap_raster_calc",
+    "supermap_reclassify",
+    "supermap_rename_dataset",
+    "supermap_set_layer_visible",
+    "supermap_workspace_info",
+    "supermap_zonal_statistics",
+    "supermap_zoom_to_dataset"
+  ],
+  "arcgis-pro": [
+    "arcgis_add_layer_from_path",
+    "arcgis_discover",
+    "arcgis_export_map_image",
+    "arcgis_list_layers",
+    "arcgis_list_maps",
+    "arcgis_list_tables",
+    "arcgis_ping",
+    "arcgis_project_info",
+    "arcgis_run_gp",
+    "arcgis_set_layer_visible",
+    "arcgis_zoom_to_layer"
+  ],
+  "arcmap": [
+    "arcmap_discover",
+    "arcmap_document_info",
+    "arcmap_list_dataframes",
+    "arcmap_list_layers",
+    "arcmap_ping",
+    "arcmap_set_layer_visible",
+    "arcmap_zoom_to_layer"
+  ],
+  "qgis": [
+    "qgis_add_layer_from_path",
+    "qgis_discover",
+    "qgis_export_map_image",
+    "qgis_list_fields",
+    "qgis_list_layers",
+    "qgis_ping",
+    "qgis_project_info",
+    "qgis_run_processing",
+    "qgis_set_layer_visible",
+    "qgis_zoom_to_layer"
+  ],
+  "catalog": [
+    "gis_catalog_list"
+  ],
+  "postgis": [
+    "postgis_discover",
+    "postgis_exec_template",
+    "postgis_export_geojson",
+    "postgis_list_spatial_tables",
+    "postgis_ping",
+    "postgis_table_columns",
+    "postgis_table_summary"
+  ],
+  "geoserver": [
+    "geoserver_capabilities_summary",
+    "geoserver_discover",
+    "geoserver_list_layers",
+    "geoserver_list_workspaces",
+    "geoserver_ping",
+    "geoserver_publish_layer"
+  ],
+  "istsos": [
+    "istsos_discover",
+    "istsos_get_observations",
+    "istsos_list_datastreams",
+    "istsos_list_things",
+    "istsos_ping",
+    "istsos_query_entities",
+    "istsos_service_root"
+  ],
+  "gdal": [
+    "gdal_aspect",
+    "gdal_clip",
+    "gdal_convert_format",
+    "gdal_discover",
+    "gdal_hillshade",
+    "gdal_ping",
+    "gdal_reproject",
+    "gdal_slope"
+  ],
+  "qgis-cli": [
+    "qgis_discover",
+    "qgis_ping",
+    "qgis_run_processing"
+  ],
+  "iserver": [
+    "iserver_discover",
+    "iserver_list_datasets",
+    "iserver_list_layers",
+    "iserver_list_maps",
+    "iserver_list_services",
+    "iserver_ping",
+    "iserver_project_info"
+  ]
+}

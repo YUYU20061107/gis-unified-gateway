@@ -1,0 +1,230 @@
+[
+ {
+  "template": "create_table",
+  "verb": "gis_create_dataset",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "add_column",
+  "verb": "gis_add_field",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "update_field",
+  "verb": "gis_calculate_field",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "copy_table",
+  "verb": "gis_copy_dataset",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "rename_table",
+  "verb": "gis_rename_dataset",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "insert_select",
+  "verb": "gis_append_dataset",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "merge_tables",
+  "verb": "gis_merge_datasets",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "set_srid",
+  "verb": "gis_assign_projection",
+  "status": "PASS",
+  "note": "public.t_polys.geom SRID changed to 4326"
+ },
+ {
+  "template": "transform_create",
+  "verb": "gis_reproject",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "buffer_create",
+  "verb": "gis_buffer",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "clip_vector",
+  "verb": "gis_clip",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "overlay_intersection",
+  "verb": "gis_overlay",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "overlay_union",
+  "verb": "gis_overlay",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "overlay_difference",
+  "verb": "gis_overlay",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "overlay_symdifference",
+  "verb": "gis_overlay",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "dissolve",
+  "verb": "gis_dissolve",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "spatial_join",
+  "verb": "gis_spatial_join",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "spatial_filter",
+  "verb": "gis_spatial_filter",
+  "status": "PASS",
+  "note": "1|A|g1|20|0103000020E610000001000000050000000000000000000000000000000000000000000000000000400000000000000000000000000000"
+ },
+ {
+  "template": "spatial_filter",
+  "verb": "gis_spatial_filter",
+  "status": "PASS",
+  "note": "2|B|g1|40|0103000020E61000000100000005000000000000000000F03F000000000000F03F0000000000000840000000000000F03F000000000000"
+ },
+ {
+  "template": "field_stats",
+  "verb": "gis_field_statistics",
+  "status": "PASS",
+  "note": "g2|1|10|10\ng1|2|60|30"
+ },
+ {
+  "template": "measure_distance",
+  "verb": "gis_measure",
+  "status": "PASS",
+  "note": "1"
+ },
+ {
+  "template": "measure_area",
+  "verb": "gis_measure",
+  "status": "PASS",
+  "note": "1"
+ },
+ {
+  "template": "measure_length",
+  "verb": "gis_measure",
+  "status": "PASS",
+  "note": "1.4142135623730951"
+ },
+ {
+  "template": "measure_azimuth",
+  "verb": "gis_measure",
+  "status": "PASS",
+  "note": "1.5707963267948966"
+ },
+ {
+  "template": "validate_check",
+  "verb": "gis_validate_geometry",
+  "status": "PASS",
+  "note": "1|1"
+ },
+ {
+  "template": "validate_repair",
+  "verb": "gis_validate_geometry",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "validate_check",
+  "verb": "gis_validate_geometry",
+  "status": "PASS",
+  "note": "1|0"
+ },
+ {
+  "template": "mvt_tile",
+  "verb": "gis_serve_vector_tile",
+  "status": "PASS",
+  "note": "\\x"
+ },
+ {
+  "template": "slope",
+  "verb": "gis_slope",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "aspect",
+  "verb": "gis_aspect",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "hillshade",
+  "verb": "gis_hillshade",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "mapalgebra",
+  "verb": "gis_raster_calc",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "reclass",
+  "verb": "gis_reclassify",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "clip_raster",
+  "verb": "gis_clip",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "clip_raster",
+  "verb": "gis_clip",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "zonal_stats",
+  "verb": "gis_zonal_statistics",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "drop_column",
+  "verb": "gis_delete_field",
+  "status": "PASS",
+  "note": ""
+ },
+ {
+  "template": "drop_table",
+  "verb": "gis_delete_dataset",
+  "status": "PASS",
+  "note": ""
+ }
+]
