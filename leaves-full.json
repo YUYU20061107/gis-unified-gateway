@@ -9,7 +9,10 @@
   "native": "arcgis_run_gp",
   "bts": "pending",
   "note": "阶段 5 裁决（2026-11-06）：厂商算法宇宙通道，无跨平台语义对应，标 exclusive；若未来要通用化，应新开通用 run_algorithm 契约，不把厂商通道混作 core/extended",
-  "tier": "exclusive"
+  "tier": "exclusive",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V01",
@@ -21,7 +24,10 @@
   "native": null,
   "bts": null,
   "note": "ArcMap 冻结存量（D3）：不开 GP 通道；阶段 5 裁决（2026-11-06）：厂商算法宇宙通道，无跨平台语义对应，标 exclusive；若未来要通用化，应新开通用 run_algorithm 契约，不把厂商通道混作 core/extended",
-  "tier": "exclusive"
+  "tier": "exclusive",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V02",
@@ -33,7 +39,10 @@
   "native": "qgis_run_processing",
   "bts": "existing",
   "note": "阶段 5 裁决（2026-11-06）：厂商算法宇宙通道，无跨平台语义对应，标 exclusive；若未来要通用化，应新开通用 run_algorithm 契约，不把厂商通道混作 core/extended",
-  "tier": "exclusive"
+  "tier": "exclusive",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V02",
@@ -45,7 +54,10 @@
   "native": "qgis_run_processing",
   "bts": "existing",
   "tier": "exclusive",
-  "note": "qgis_process 3.44.15 无头实跑 native:buffer（网关 e2e，2026-11-06）；只开 Processing 通道，不冒充工程/图层视图；阶段 5 裁决（2026-11-06）：厂商算法宇宙通道，无跨平台语义对应，标 exclusive；若未来要通用化，应新开通用 run_algorithm 契约，不把厂商通道混作 core/extended"
+  "note": "qgis_process 3.44.15 无头实跑 native:buffer（网关 e2e，2026-11-06）；只开 Processing 通道，不冒充工程/图层视图；阶段 5 裁决（2026-11-06）：厂商算法宇宙通道，无跨平台语义对应，标 exclusive；若未来要通用化，应新开通用 run_algorithm 契约，不把厂商通道混作 core/extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V03",
@@ -57,7 +69,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V03",
@@ -69,7 +84,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V03",
@@ -81,7 +99,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V03",
@@ -93,7 +114,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V03",
@@ -105,7 +129,10 @@
   "native": null,
   "bts": null,
   "tier": "core",
-  "note": "网关本地 Processing 种子账 374 条，不调 CLI；qgis-cli 后端与 qgis in-app 桥分开"
+  "note": "网关本地 Processing 种子账 374 条，不调 CLI；qgis-cli 后端与 qgis in-app 桥分开",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V04",
@@ -117,7 +144,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V04",
@@ -129,7 +159,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V04",
@@ -141,7 +174,10 @@
   "native": null,
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V04",
@@ -153,7 +189,10 @@
   "native": null,
   "bts": null,
   "tier": "core",
-  "note": "网关本地 Processing 种子账条目，不调 CLI；参数模式如实 pending"
+  "note": "网关本地 Processing 种子账条目，不调 CLI；参数模式如实 pending",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V05",
@@ -165,7 +204,10 @@
   "native": "arcpy.management.CreateFeatureClass",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V05",
@@ -177,7 +219,10 @@
   "native": "arcpy.management.CreateTable",
   "bts": null,
   "note": "CreateTable 函数名按命名规则生成，待 arcpy 实际导入核对（设计 §2 V05）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V05",
@@ -189,7 +234,10 @@
   "native": null,
   "bts": null,
   "note": "栅格容器创建未在设计 §2 V05 的 Pro 映射内（CreateRasterDataset 未列），本波不开",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V05",
@@ -201,7 +249,10 @@
   "native": "supermap_create_dataset",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V05",
@@ -213,7 +264,10 @@
   "native": "qgis_create_layer",
   "bts": null,
   "note": "桥侧 PyQGIS 建层未在普查算法清单内、未核实，实现期以桥侧校准为准；不得用 Processing 冒名（设计 §2 V05）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V05",
@@ -225,7 +279,10 @@
   "native": "create_table",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V06",
@@ -237,7 +294,10 @@
   "native": "arcpy.management.AddField",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V06",
@@ -249,7 +309,10 @@
   "native": "native:addfieldtoattributestable",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V06",
@@ -265,7 +328,10 @@
   "b1_verdict": "unresolved",
   "b1_native": null,
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "no module-level function; class-method drill-down round 2"
+  "b1_note": "no module-level function; class-method drill-down round 2",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V06",
@@ -277,7 +343,10 @@
   "native": "add_column",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V07",
@@ -289,7 +358,10 @@
   "native": "arcpy.management.DeleteField",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V07",
@@ -301,7 +373,10 @@
   "native": "native:deletecolumn",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V07",
@@ -317,7 +392,10 @@
   "b1_verdict": "unresolved",
   "b1_native": null,
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "no delete* function at module level; class-method drill-down round 2"
+  "b1_note": "no delete* function at module level; class-method drill-down round 2",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V07",
@@ -329,7 +407,10 @@
   "native": "drop_column",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V08",
@@ -341,7 +422,10 @@
   "native": "arcpy.management.CalculateField",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V08",
@@ -353,7 +437,10 @@
   "native": "native:fieldcalculator",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V08",
@@ -369,7 +456,10 @@
   "b1_verdict": "name_verified_function",
   "b1_native": "update_attributes",
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "Recordset class also present; signature per Help at implementation"
+  "b1_note": "Recordset class also present; signature per Help at implementation",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V08",
@@ -381,7 +471,10 @@
   "native": "update_field",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V09",
@@ -393,7 +486,10 @@
   "native": "arcpy.management.Copy",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V09",
@@ -405,7 +501,10 @@
   "native": "supermap_copy_dataset",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V09",
@@ -417,7 +516,10 @@
   "native": "copy_table",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V09",
@@ -429,7 +531,10 @@
   "native": "gdal:convertformat",
   "bts": null,
   "note": "同库复制为近似映射（经格式转换写出），非原地复制语义",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V10",
@@ -441,7 +546,10 @@
   "native": "arcpy.management.Rename",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V10",
@@ -453,7 +561,10 @@
   "native": "supermap_rename_dataset",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V10",
@@ -465,7 +576,10 @@
   "native": "rename_table",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V10",
@@ -477,7 +591,10 @@
   "native": null,
   "bts": null,
   "note": "桥侧改名未核实，本波 NOT_SUPPORTED（设计 §2 V10）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V11",
@@ -489,7 +606,10 @@
   "native": "arcpy.management.Delete",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V11",
@@ -501,7 +621,10 @@
   "native": "supermap_delete_dataset",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V11",
@@ -513,7 +636,10 @@
   "native": "drop_table",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V11",
@@ -525,7 +651,10 @@
   "native": null,
   "bts": null,
   "note": "桥侧删除未核实，本波 NOT_SUPPORTED（设计 §2 V11）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V12",
@@ -537,7 +666,10 @@
   "native": "arcpy.management.Merge",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V12",
@@ -549,7 +681,10 @@
   "native": "native:mergevectorlayers",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V12",
@@ -561,7 +696,10 @@
   "native": "merge_tables",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V12",
@@ -577,7 +715,10 @@
   "b1_verdict": "unresolved",
   "b1_native": null,
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "only append_to_network_dataset (network-specific); class-method drill-down round 2"
+  "b1_note": "only append_to_network_dataset (network-specific); class-method drill-down round 2",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V13",
@@ -589,7 +730,10 @@
   "native": "arcpy.management.Append",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V13",
@@ -601,7 +745,10 @@
   "native": "insert_select",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V13",
@@ -613,7 +760,10 @@
   "native": null,
   "bts": null,
   "note": "以合并输出替换的近似路径未校准前 NOT_SUPPORTED（设计 §2 V13）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V13",
@@ -625,7 +775,10 @@
   "native": null,
   "bts": null,
   "note": "待验，本波 NOT_SUPPORTED（设计 §2 V13）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V14",
@@ -637,7 +790,10 @@
   "native": "arcpy.management.DefineProjection",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V14",
@@ -649,7 +805,10 @@
   "native": "native:assignprojection",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V14",
@@ -661,7 +820,10 @@
   "native": "set_srid",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V14",
@@ -676,7 +838,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_class",
   "b1_native": "PrjCoordSys (class/property path)",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -688,7 +853,10 @@
   "native": "arcpy.management.Project",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -700,7 +868,10 @@
   "native": "arcpy.management.ProjectRaster",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -712,7 +883,10 @@
   "native": null,
   "bts": null,
   "note": "表无坐标，重投影不适用",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -724,7 +898,10 @@
   "native": "native:reprojectlayer",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -736,7 +913,10 @@
   "native": "gdal:warpreproject",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -748,7 +928,10 @@
   "native": null,
   "bts": null,
   "note": "表无坐标，重投影不适用",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -760,7 +943,10 @@
   "native": "transform_create",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -775,7 +961,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_class",
   "b1_native": "CoordSysTranslator (class method path)",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -787,7 +976,10 @@
   "native": "gdal_reproject",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；ogr2ogr -t_srs EPSG:3857",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V15",
@@ -799,7 +991,10 @@
   "native": "gdal_reproject",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；gdalwarp -t_srs EPSG:3857",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -811,7 +1006,10 @@
   "native": "gdal:convertformat",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -823,7 +1021,10 @@
   "native": "gdal:translate",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -835,7 +1036,10 @@
   "native": "gdal:convertformat",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -847,7 +1051,10 @@
   "native": "arcpy.conversion.ExportFeatures",
   "bts": null,
   "note": "按目标格式在 Conversion core 子集内择一（ExportFeatures/FeatureClassToShapefile/FeaturesToJSON 等），桥侧定具体函数",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -859,7 +1066,10 @@
   "native": "arcpy.conversion.RasterToOtherFormat",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -871,7 +1081,10 @@
   "native": "arcpy.conversion.ExportFeatures",
   "bts": null,
   "note": "表导出在 Conversion core 子集内择一，桥侧定具体函数",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -883,7 +1096,10 @@
   "native": "supermap_export_data",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -895,7 +1111,10 @@
   "native": "postgis_export_geojson",
   "bts": "existing",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -907,7 +1126,10 @@
   "native": null,
   "bts": null,
   "note": "PostGIS 只支持表→GeoJSON 类轻量导出；文件级互转未核实，不冒名（设计 §2 V16）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -919,7 +1141,10 @@
   "native": "gdal_convert_format",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；ogr2ogr -f GPKG",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V16",
@@ -931,7 +1156,10 @@
   "native": "gdal_convert_format",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；gdal_translate -of PNG",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V17",
@@ -943,7 +1171,10 @@
   "native": "supermap_import_data",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V17",
@@ -955,7 +1186,10 @@
   "native": "arcpy.conversion.FeatureClassToGeodatabase",
   "bts": null,
   "note": "按源格式在 Conversion 的 To Geodatabase 族内择一（RasterToGeodatabase/JSONToFeatures/KMLToLayer 等），桥侧定具体函数",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V17",
@@ -967,7 +1201,10 @@
   "native": "gdal:convertformat",
   "bts": null,
   "note": "写目标库为近似映射（经 GDAL 转换落库），非原生导入语义",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V17",
@@ -979,7 +1216,10 @@
   "native": "from_gdal_raster",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V17",
@@ -991,7 +1231,10 @@
   "native": null,
   "bts": null,
   "note": "文件级矢量入库走 GDAL ogr2ogr 命令行轮子（平台外工具），登记不冒名（设计 §2 V17）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V17",
@@ -1003,7 +1246,10 @@
   "native": null,
   "bts": null,
   "note": "文件级表入库未核实，本波不开",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V18",
@@ -1015,7 +1261,10 @@
   "native": "arcpy.analysis.Buffer",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V18",
@@ -1027,7 +1276,10 @@
   "native": "native:buffer",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V18",
@@ -1039,7 +1291,10 @@
   "native": "supermap_create_buffer",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V18",
@@ -1051,7 +1306,10 @@
   "native": "buffer_create",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1063,7 +1321,10 @@
   "native": "arcpy.analysis.Clip",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1075,7 +1336,10 @@
   "native": "arcpy.sa.ExtractByMask",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1087,7 +1351,10 @@
   "native": "qgis:clip",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1099,7 +1366,10 @@
   "native": "gdal:cliprasterbymasklayer",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1111,7 +1381,10 @@
   "native": "supermap_overlay_clip",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1123,7 +1396,10 @@
   "native": "supermap_clip_raster",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1135,7 +1411,10 @@
   "native": "clip_vector",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1147,7 +1426,10 @@
   "native": "clip_raster",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1159,7 +1441,10 @@
   "native": "gdal_clip",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；ogr2ogr -clipsrc",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V19",
@@ -1171,7 +1456,10 @@
   "native": "gdal_clip",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；gdalwarp -cutline -crop_to_cutline",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1183,7 +1471,10 @@
   "native": "arcpy.analysis.Intersect",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1195,7 +1486,10 @@
   "native": "arcpy.analysis.Union",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1207,7 +1501,10 @@
   "native": "arcpy.analysis.Erase",
   "bts": null,
   "note": "difference 语义在 ArcGIS 侧由 Erase 承担（输入减去叠加层）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1219,7 +1516,10 @@
   "native": "arcpy.analysis.Erase",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1231,7 +1531,10 @@
   "native": "arcpy.analysis.Identity",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1243,7 +1546,10 @@
   "native": "arcpy.analysis.SymmetricalDifference",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1255,7 +1561,10 @@
   "native": "arcpy.analysis.Update",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1267,7 +1576,10 @@
   "native": "qgis:intersection",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1279,7 +1591,10 @@
   "native": "qgis:union",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1291,7 +1606,10 @@
   "native": "qgis:difference",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1303,7 +1621,10 @@
   "native": "qgis:difference",
   "bts": null,
   "note": "erase 语义在 QGIS 侧由 difference 承担",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1315,7 +1636,10 @@
   "native": "qgis:symmetricaldifference",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1327,7 +1651,10 @@
   "native": null,
   "bts": null,
   "note": "普查 QGIS 清单中无 identity 同名条目，未核实，本波 NOT_SUPPORTED（设计 §2 V20）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1339,7 +1666,10 @@
   "native": null,
   "bts": null,
   "note": "普查 QGIS 清单中无 update 同名条目，未核实，本波 NOT_SUPPORTED（设计 §2 V20）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1354,7 +1684,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "intersect",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1369,7 +1702,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "union",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1385,7 +1721,10 @@
   "b1_verdict": "pending_check",
   "b1_native": null,
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "no difference function at module level; check OverlayMode enum vs erase in batch 1"
+  "b1_note": "no difference function at module level; check OverlayMode enum vs erase in batch 1",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1400,7 +1739,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "erase",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1415,7 +1757,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "identity",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1431,7 +1776,10 @@
   "b1_verdict": "name_verified_function",
   "b1_native": "xor",
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "native name differs, semantics correspond"
+  "b1_note": "native name differs, semantics correspond",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1446,7 +1794,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "update",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1458,7 +1809,10 @@
   "native": "overlay_intersection",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1470,7 +1824,10 @@
   "native": "overlay_union",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1482,7 +1839,10 @@
   "native": "overlay_difference",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1494,7 +1854,10 @@
   "native": "overlay_difference",
   "bts": null,
   "note": "erase 语义在 PostGIS 侧由 ST_Difference 承担",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1506,7 +1869,10 @@
   "native": "overlay_symdifference",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1518,7 +1884,10 @@
   "native": null,
   "bts": null,
   "note": "无单函数对应，NOT_SUPPORTED（设计 §2 V20）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V20",
@@ -1530,7 +1899,10 @@
   "native": null,
   "bts": null,
   "note": "无单函数对应，NOT_SUPPORTED（设计 §2 V20）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V21",
@@ -1542,7 +1914,10 @@
   "native": "arcpy.management.Dissolve",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V21",
@@ -1554,7 +1929,10 @@
   "native": "native:dissolve",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V21",
@@ -1566,7 +1944,10 @@
   "native": "supermap_dissolve",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V21",
@@ -1578,7 +1959,10 @@
   "native": "dissolve",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1590,7 +1974,10 @@
   "native": "arcpy.analysis.SpatialJoin",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1602,7 +1989,10 @@
   "native": "native:joinattributesbylocation",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1614,7 +2004,10 @@
   "native": "spatial_join",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1626,7 +2019,10 @@
   "native": "spatial_join",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1638,7 +2034,10 @@
   "native": "spatial_join",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1650,7 +2049,10 @@
   "native": null,
   "bts": null,
   "note": "最近邻连接需逐行相关子查询模板，未在本波模板集内，登记待补",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V22",
@@ -1662,7 +2064,10 @@
   "native": null,
   "bts": null,
   "note": "iobjectspy.analyst 空间连接未逐项核实，未验前 NOT_SUPPORTED（设计 §2 V22）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V23",
@@ -1674,7 +2079,10 @@
   "native": "arcpy.sa.RasterCalculator",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V23",
@@ -1686,7 +2094,10 @@
   "native": "native:rastercalc",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V23",
@@ -1698,7 +2109,10 @@
   "native": "supermap_raster_calc",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V23",
@@ -1710,7 +2124,10 @@
   "native": "mapalgebra",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V24",
@@ -1722,7 +2139,10 @@
   "native": "arcpy.sa.Slope",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V24",
@@ -1734,7 +2154,10 @@
   "native": "qgis:slope",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V24",
@@ -1749,7 +2172,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "calculate_slope",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V24",
@@ -1761,7 +2187,10 @@
   "native": "slope",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V24",
@@ -1773,7 +2202,10 @@
   "native": "gdal_slope",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；gdaldem slope",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V25",
@@ -1785,7 +2217,10 @@
   "native": "arcpy.sa.Aspect",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V25",
@@ -1797,7 +2232,10 @@
   "native": "qgis:aspect",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V25",
@@ -1812,7 +2250,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "calculate_aspect",
-  "b1_ref": "b1-reconciliation.json (2026-11-03)"
+  "b1_ref": "b1-reconciliation.json (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V25",
@@ -1824,7 +2265,10 @@
   "native": "aspect",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V25",
@@ -1836,7 +2280,10 @@
   "native": "gdal_aspect",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；gdaldem aspect",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V26",
@@ -1848,7 +2295,10 @@
   "native": "arcpy.sa.Hillshade",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V26",
@@ -1860,7 +2310,10 @@
   "native": "qgis:hillshade",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V26",
@@ -1876,7 +2329,10 @@
   "b1_verdict": "name_verified_function",
   "b1_native": "calculate_hill_shade",
   "b1_ref": "b1-reconciliation.json (2026-11-03)",
-  "b1_note": "script hint substring false negative"
+  "b1_note": "script hint substring false negative",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V26",
@@ -1888,7 +2344,10 @@
   "native": "hillshade",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V26",
@@ -1900,7 +2359,10 @@
   "native": "gdal_hillshade",
   "bts": "existing",
   "note": "GDAL 3.13.3 本地 CLI 实跑（test_gdal_live.py 16/16 PASS，2026-11-06）；写新 target，不覆盖原件；gdaldem hillshade",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V27",
@@ -1912,7 +2374,10 @@
   "native": "arcpy.sa.Reclassify",
   "bts": null,
   "note": "Reclassify 函数名按普查命名规则生成，须以 arcpy 实际导入为准（设计 §2 V27）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V27",
@@ -1924,7 +2389,10 @@
   "native": "native:reclassifybytable",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V27",
@@ -1936,7 +2404,10 @@
   "native": "supermap_reclassify",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V27",
@@ -1948,7 +2419,10 @@
   "native": "reclass",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V28",
@@ -1960,7 +2434,10 @@
   "native": "arcpy.sa.ZonalStatisticsAsTable",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V28",
@@ -1972,7 +2449,10 @@
   "native": "native:zonalstatisticsfb",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V28",
@@ -1984,7 +2464,10 @@
   "native": "supermap_zonal_statistics",
   "bts": "pending",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V28",
@@ -1996,7 +2479,10 @@
   "native": "zonal_stats",
   "bts": null,
   "note": "derived：非单函数，由模板组合实现，注册表单独标 derived",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V29",
@@ -2008,7 +2494,10 @@
   "native": "arcpy.analysis.SummaryStatistics",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V29",
@@ -2020,7 +2509,10 @@
   "native": "qgis:basicstatisticsforfields",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V29",
@@ -2032,7 +2524,10 @@
   "native": "field_stats",
   "bts": null,
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V29",
@@ -2044,7 +2539,10 @@
   "native": null,
   "bts": null,
   "note": "iobjectspy.analyst 统计类具体名待验，未验前 NOT_SUPPORTED（设计 §2 V29）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V30",
@@ -2056,7 +2554,10 @@
   "native": "spatial_filter",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V31",
@@ -2068,7 +2569,10 @@
   "native": "measure_distance",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V31",
@@ -2080,7 +2584,10 @@
   "native": "measure_area",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V31",
@@ -2092,7 +2599,10 @@
   "native": "measure_length",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V31",
@@ -2104,7 +2614,10 @@
   "native": "measure_azimuth",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V32",
@@ -2116,7 +2629,10 @@
   "native": "validate_check/validate_repair",
   "bts": null,
   "note": "阶段 1 裁决（2026-11-05）：postgis check/repair 模板 validate_check/validate_repair 在真实 PostGIS 38/38 PASS（postgis-test-results.json）；网关执行器 postgis_exec_template 仍 pending，故 ok 仅指映射/模板实机，不是网关端到端",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V32",
@@ -2128,7 +2644,10 @@
   "native": "arcpy.management.CheckGeometry/RepairGeometry",
   "bts": null,
   "note": "阶段 1 裁决（2026-11-05）：GP 注册表/白名单在册，但无 Pro 环境、未实机；verbs.json 同步降为 unverified",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V32",
@@ -2140,7 +2659,10 @@
   "native": "qgis:checkvalidity/native:fixgeometries",
   "bts": null,
   "note": "阶段 1 裁决（2026-11-05）：Processing 种子账仅名级，未实机；verbs.json 同步降为 unverified（B96 相应改为拒绝）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V32",
@@ -2155,7 +2677,10 @@
   "tier": "core",
   "b1_verdict": "name_verified_function",
   "b1_native": "topology_validate",
-  "b1_ref": "B1/D5 (2026-11-03)"
+  "b1_ref": "B1/D5 (2026-11-03)",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V33",
@@ -2167,7 +2692,10 @@
   "native": "mvt_tile",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V34",
@@ -2179,7 +2707,10 @@
   "native": "geoserver_publish_layer",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V35",
@@ -2191,7 +2722,10 @@
   "native": "geoserver_capabilities_summary",
   "bts": "existing",
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V35",
@@ -2203,7 +2737,10 @@
   "native": "istsos_service_root",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V35",
@@ -2215,7 +2752,10 @@
   "native": null,
   "bts": null,
   "note": "iServer 服务面本波登记，NOT_SUPPORTED（设计 §2 V35）",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V35",
@@ -2227,7 +2767,10 @@
   "native": "iserver_list_services",
   "bts": "existing",
   "note": "demo-instance-verified：GET services.json 200（115 服务）；map-china 4 地图 / China 1 顶层 13 子层；data-china China 数据源 47 数据集；spatialanalyst 根/子资源形状已确认，执行未尝试（仅 GET）；非本机、版本未确认",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2239,7 +2782,10 @@
   "native": "istsos_list_things",
   "bts": "existing",
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2251,7 +2797,10 @@
   "native": "istsos_list_datastreams",
   "bts": "existing",
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2263,7 +2812,10 @@
   "native": "istsos_get_observations",
   "bts": "existing",
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2275,7 +2827,10 @@
   "native": "istsos_query_entities",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2287,7 +2842,10 @@
   "native": "istsos_query_entities",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2299,7 +2857,10 @@
   "native": "istsos_query_entities",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2311,7 +2872,10 @@
   "native": "istsos_query_entities",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V36",
@@ -2323,7 +2887,10 @@
   "native": "istsos_query_entities",
   "bts": "pending",
   "note": "桥侧执行工具待实现（pending）：网关翻译/治理已落地，实机不可用，校准不升格",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V37",
@@ -2335,7 +2902,10 @@
   "native": "pdal:info",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2347,7 +2917,10 @@
   "native": "pdal:clip",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2359,7 +2932,10 @@
   "native": "pdal:reproject",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2371,7 +2947,10 @@
   "native": "pdal:thinbyradius",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2383,7 +2962,10 @@
   "native": "pdal:thinbydecimate",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2395,7 +2977,10 @@
   "native": "pdal:merge",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2407,7 +2992,10 @@
   "native": "pdal:convertformat",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2419,7 +3007,10 @@
   "native": "pdal:exportraster",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2431,7 +3022,10 @@
   "native": "pdal:exportrastertin",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2443,7 +3037,10 @@
   "native": "pdal:density",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V38",
@@ -2455,7 +3052,10 @@
   "native": "pdal:boundary",
   "bts": null,
   "note": "",
-  "tier": "extended"
+  "tier": "extended",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V39",
@@ -2467,7 +3067,10 @@
   "native": "supermap_add_dataset_to_map",
   "bts": "existing",
   "note": "目录登记 id 作为数据集名透传，实机以工作空间内实际名为准",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V39",
@@ -2479,7 +3082,10 @@
   "native": "arcgis_add_layer_from_path",
   "bts": "existing",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V39",
@@ -2491,7 +3097,10 @@
   "native": "qgis_add_layer_from_path",
   "bts": "existing",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V39",
@@ -2503,7 +3112,10 @@
   "native": null,
   "bts": null,
   "note": "目录后端自身不开此动词（目标必须是 GIS 后端）",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V40",
@@ -2515,7 +3127,10 @@
   "native": "supermap_export_map_image",
   "bts": "existing",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V40",
@@ -2527,7 +3142,10 @@
   "native": "arcgis_export_map_image",
   "bts": "existing",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V40",
@@ -2539,7 +3157,10 @@
   "native": null,
   "bts": null,
   "note": "ArcMap 冻结存量（D3/派单口径）：桥内有 arcmap_export_map_image，本波不升统一面",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  },
  {
   "vid": "V40",
@@ -2551,6 +3172,9 @@
   "native": "qgis_export_map_image",
   "bts": "existing",
   "note": "",
-  "tier": "core"
+  "tier": "core",
+  "last_verified_at": null,
+  "last_probe_result": null,
+  "history": []
  }
 ]

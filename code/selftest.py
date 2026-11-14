@@ -15,6 +15,7 @@ C 段：端到端——真起 gateway.py 子进程，后端全部指向 mock_ser
 
 结果写 selftest-results.txt；任一断言失败退出码非 0。
 """
+import datetime
 import importlib.util
 import json
 import os
@@ -1144,6 +1145,47 @@ check("C16 真实目录 V39：以 storage.uri（USGS 页）为路径透传 + 许
           "https://www.usgs.gov/")
       and p.get("license_gate", {}).get("catalog_id") == "srtm", p)
 real_client.close()
+
+# ---------------- D 段：账本新鲜度字段（v0.4 复探扩展） ----------------
+
+def _iso_ok(v):
+    if v is None:
+        return True
+    if not isinstance(v, str):
+        return False
+    try:
+        datetime.datetime.fromisoformat(v.replace("Z", "+00:00"))
+        return True
+    except ValueError:
+        return False
+
+
+_d_bad = []
+for _leaf in leaves_ledger:
+    _k = "%s|%s|%s" % (_leaf.get("vid"), _leaf.get("verb"),
+                       _leaf.get("backend"))
+    if not _iso_ok(_leaf.get("last_verified_at")):
+        _d_bad.append(_k + " last_verified_at 非法")
+        continue
+    if _leaf.get("last_probe_result") not in (None, "pass", "fail",
+                                              "unreachable"):
+        _d_bad.append(_k + " last_probe_result 非法")
+        continue
+    _hist = _leaf.get("history")
+    if not isinstance(_hist, list):
+        _d_bad.append(_k + " history 非列表")
+        continue
+    if _hist:
+        _last = _hist[-1]
+        if _last.get("result") != _leaf.get("last_probe_result") \
+                or _last.get("at") != _leaf.get("last_verified_at"):
+            _d_bad.append(_k + " history 末条与最近结果/时间不一致")
+        if _last.get("result") == "fail" \
+                and _leaf.get("status") == "ok":
+            _d_bad.append(_k + " 已 fail 却仍标 ok")
+check("D1 账本新鲜度字段自洽：last_verified_at 格式合法、history 与 "
+      "status/最近结果一致（%d 叶）" % len(leaves_ledger),
+      not _d_bad, _d_bad[:3])
 
 with open(os.path.join(HERE, "selftest-results.txt"), "w",
           encoding="utf-8", newline="\n") as f:
